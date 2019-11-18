@@ -12,6 +12,7 @@ public class Player extends Entity {
         Radius=radius;
         Height =hight;
         Team=team;
+        Speed = .1f;
     }
 
     @Override
@@ -45,7 +46,7 @@ public class Player extends Entity {
                 Pos.y+=Vel.y;
             }
         }
-        Vel.Divide(2);
+        Vel.Divide(1.1f);
     }
 
     @Override
@@ -53,19 +54,19 @@ public class Player extends Entity {
     {
         if(GM.GetKey('w'))
         {
-            Vel.y-=.3f;
+            Vel.y -= Speed;
         }
         if(GM.GetKey('a'))
         {
-            Vel.x-=.3f;
+            Vel.x-=Speed;
         }
         if(GM.GetKey('s'))
         {
-            Vel.y+=.3f;
+            Vel.y+=Speed;
         }
         if(GM.GetKey('d'))
         {
-            Vel.x+=.3f;
+            Vel.x+=Speed;
         }
         if(GM.mousePressed && GM.mouseButton == GameManager.LEFT)
         {

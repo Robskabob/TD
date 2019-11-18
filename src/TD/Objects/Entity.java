@@ -7,6 +7,7 @@ public abstract class Entity
 {
     public Vec2 Pos;
     public Vec2 Vel;
+    public float Speed;
     public float Radius;
     public int Height;
     public int Team;
