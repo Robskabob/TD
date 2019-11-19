@@ -44,6 +44,7 @@ public class EntitySystem extends System
 
     }
     public int RR=0;
+    @Override
     public void draw()
     {
         for(int i = 0; i < Entities.size(); i++)
@@ -57,7 +58,6 @@ public class EntitySystem extends System
             }
             E.Update(GM);
             E.Physics(GM);
-            E.draw(GM.Render.FocusX(), GM.Render.FocusY(),GM);
         }
 
         GM.strokeCap(2);

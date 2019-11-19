@@ -38,4 +38,12 @@ public class Vec2
         x += val.x;
         y += val.y;
     }
+
+    public float sqMag() {
+        return x*x+y*y;
+    }
+
+    public Vec2 sub(Vec2 v) {
+        return new Vec2(x-v.x,y-v.y);
+    }
 }

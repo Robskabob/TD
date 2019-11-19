@@ -17,6 +17,11 @@ public class KeySystem extends System {
         Keys.put('d', false);
     }
 
+    @Override
+    public void draw() {
+
+    }
+
     public boolean Get(Character c) {
         return Keys.containsKey(c) && Keys.get(c);
     }

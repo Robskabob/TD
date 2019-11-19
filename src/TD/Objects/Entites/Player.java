@@ -1,10 +1,10 @@
 package TD.Objects.Entites;
 
 import TD.Main.GameManager;
-import TD.Objects.Entity;
+import TD.Objects.Mob;
 import TD.Util.Vec2;
 
-public class Player extends Entity {
+public class Player extends Mob {
     public Player(float x,float y,float radius,int hight,int team)
     {
         Pos = new Vec2(x,y);
@@ -13,45 +13,13 @@ public class Player extends Entity {
         Height =hight;
         Team=team;
         Speed = .1f;
-    }
-
-    @Override
-    public void Physics(GameManager GM)
-    {
-        if(Vel.x<0)
-        {
-            if(GM.GetBlockAt((int)(Pos.x+Vel.x-Radius),(int)(Pos.y)).Depth == Height)
-            {
-                Pos.x+=Vel.x;
-            }
-        }
-        else
-        {
-            if(GM.GetBlockAt((int)(Pos.x+Vel.x+Radius),(int)(Pos.y)).Depth == Height)
-            {
-                Pos.x+=Vel.x;
-            }
-        }
-        if(Vel.y<0)
-        {
-            if(GM.GetBlockAt((int)(Pos.x),(int)(Pos.y+Vel.y-Radius)).Depth == Height)
-            {
-                Pos.y+=Vel.y;
-            }
-        }
-        else
-        {
-            if(GM.GetBlockAt((int)(Pos.x),(int)(Pos.y+Vel.y+Radius)).Depth == Height)
-            {
-                Pos.y+=Vel.y;
-            }
-        }
-        Vel.Divide(1.1f);
+        Friction = .3f;
     }
 
     @Override
     public void Update(GameManager GM)
     {
+        Rot = GM.atan2(GM.mouseY-(GM.height/2),GM.mouseX-(GM.width/2));
         if(GM.GetKey('w'))
         {
             Vel.y -= Speed;
@@ -70,26 +38,23 @@ public class Player extends Entity {
         }
         if(GM.mousePressed && GM.mouseButton == GameManager.LEFT)
         {
-            GM.Entity.Add(new Projectile(Pos,0,1000));
+            GM.Entity.Add(new Projectile(Pos,Rot,.5f,Height+1));
         }
     }
 
-    public void draw(float x, float y, GameManager GM)
+    @Override
+    public void draw(GameManager GM, float x, float y, float rot, float scale)
     {
-        GM.textSize(32);
-        GM.fill(0, 0, 0);
-        GM.text("Zoom:"+GM.GetZoom(), 10, 30);
-        GM.text("MouseX:"+GM.MX, 10, 60);
-        GM.text("MouseY:"+GM.MY, 10, 90);
-        GM.text("MouseYf:"+GM.MYF, 10, 120);
-
-        x=(Pos.x-x)*GM.Render.Zoom;
-        y=(Pos.y-y)*GM.Render.Zoom;
+        GM.pushMatrix();
+        GM.translate(x,y);
+        GM.rotate(rot);
 
         GM.ellipseMode(2);
         GM.fill(60);
         GM.stroke(30);
         GM.strokeWeight(1);
-        GM.ellipse(x, y, Radius*GM.Render.Zoom, Radius*GM.Render.Zoom);
+        GM.ellipse(0, 0, Radius*scale, Radius*scale);
+
+        GM.popMatrix();
     }
 }

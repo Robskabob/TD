@@ -2,16 +2,14 @@ package TD.System;
 
 import TD.Main.GameManager;
 
-public class System {
+public abstract class System {
     protected GameManager GM;
 
     public System(GameManager gm) {
         GM = gm;
     }
 
-    public void setup() {
-    }
+    public abstract void setup();
 
-    public void draw() {
-    }
+    public abstract void draw();
 }

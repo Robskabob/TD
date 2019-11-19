@@ -6,22 +6,19 @@ import TD.Util.Vec2;
 public abstract class Entity
 {
     public Vec2 Pos;
-    public Vec2 Vel;
-    public float Speed;
-    public float Radius;
+    public float Rot;
+    public float Radius = 1;
     public int Height;
     public int Team;
     public boolean Dead = false;
 
-    public void Physics(GameManager GM)
-    {
-        Pos.Add(Vel);
-        Vel.Divide(2);
-    }
+    public void Physics(GameManager GM) {   }
 
     public abstract void Update(GameManager GM);
 
-    public abstract void draw(float x,float y,GameManager GM);
+    //change to imput x y scale rot transfor pop push inside
+
+    public abstract void draw(GameManager GM, float x, float y, float rot, float scale);
     //{
     //    GM.ellipseMode(2);
     //    GM.fill(10);

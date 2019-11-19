@@ -1,9 +1,7 @@
 package TD.Main;
 
-import java.security.PublicKey;
-import java.util.ArrayList;
-
 import TD.Objects.Block;
+import TD.Objects.Entites.Tower;
 import TD.Objects.Entites.Player;
 import TD.System.EntitySystem;
 import TD.System.KeySystem;
@@ -26,7 +24,7 @@ public class GameManager extends PApplet
 
     public Block GetBlockAt(int X, int Y)
     {
-        return BlockMap.get(Map.Get(X, Y));
+        return Map.BlockMap.get(Map.Get(X, Y));
     }
 
     public void SetIDAt(int X,int Y,int ID)
@@ -55,7 +53,7 @@ public class GameManager extends PApplet
     //Methods
 
     //End
-    public ArrayList<Block> BlockMap = new ArrayList<Block>();//{new Block(0,10,100,0),new Block(0,30,110,0),new Block(10,110,20,1)};
+    //{new Block(0,10,100,0),new Block(0,30,110,0),new Block(10,110,20,1)};
 
     public static void main(String[] args) {
         PApplet.main("TD.Main.GameManager");
@@ -72,19 +70,19 @@ public class GameManager extends PApplet
     }
 
     public void settings(){
-        size(1960,1080);
         GM=this;
+        size(GM.displayWidth,GM.displayHeight);
     }
 
     public void setup(){
         P = new Player(12.5f,12.5f,.4f,1,5);
-        BlockMap.add(new Block(this, 0,10,100,0));
-        BlockMap.add(new Block(this, 0,30,110,0));
-        BlockMap.add(new Block(this, 10,110,20,1));
-        BlockMap.add(new Block(this, 80,110,60,1));
-        BlockMap.add(new Block(this, 120,120,120,2));
-        BlockMap.add(new Block(this, 211,211,211,2));
-        BlockMap.add(new Block(this, 120,120,120,5));
+        Map.BlockMap.add(new Block(this, 0,10,100,0));
+        Map.BlockMap.add(new Block(this, 0,30,110,0));
+        Map.BlockMap.add(new Block(this, 10,110,20,1));
+        Map.BlockMap.add(new Block(this, 80,110,60,1));
+        Map.BlockMap.add(new Block(this, 120,120,120,2));
+        Map.BlockMap.add(new Block(this, 211,211,211,2));
+        Map.BlockMap.add(new Block(this, 120,120,120,5));
         frameRate(30);
         //BlockMap = new Block[]{new Block(0,10,100,0),new Block(0,30,110,0),new Block(10,110,20,1),new Block(80,110,60,1),new Block(120,120,120,3),new Block(200,200,225,5),new Block(25,25,200,5),new Block(200,25,25,5),new Block(25,200,25,5),new Block(200,200,25,5)};;
         Map.setup();
@@ -93,12 +91,23 @@ public class GameManager extends PApplet
         Key.setup();
         Render.Focus = P;
         Entity.Add(P);
+        Entity.Add(new Tower(10,10));
+        Entity.Add(new Tower(10,11));
+        Entity.Add(new Tower(10,12));
     }
 
     public void draw(){
         Map.draw();
         Render.draw();
         Entity.draw();
+
+        textSize(32);
+        fill(0, 0, 0);
+        text("Zoom:"+GM.GetZoom(), 10, 30);
+        text("MouseX:"+GM.MX, 10, 60);
+        text("MouseY:"+GM.MY, 10, 90);
+        text("MouseYf:"+GM.MYF, 10, 120);
+
         if(mousePressed)
         {
             mouseDragged();
@@ -115,13 +124,13 @@ public class GameManager extends PApplet
         else
         {
             M+=e;
-            if(M>BlockMap.size()-1)
+            if(M>Map.BlockMap.size()-1)
             {
                 M=0;
             }
             else if(M<0)
             {
-                M=BlockMap.size()-1;
+                M=Map.BlockMap.size()-1;
             }
         }
     }

@@ -1,17 +1,34 @@
 package TD.Objects.Entites;
 
-        import TD.Main.GameManager;
-        import TD.Objects.Entity;
-        import TD.Util.Vec2;
+import TD.Main.GameManager;
+import TD.Objects.Mob;
+import TD.Util.Vec2;
 
-public class Projectile extends Entity
+public class Projectile extends Mob
 {
-    int life = 500;
+    int life = 100;
 
-    public Projectile(Vec2 pos, float dir,float speed)
+    public Projectile(Vec2 pos, float dir,float speed,int hight)
     {
         Pos = new Vec2(pos);
-        Vel = new Vec2(GameManager.sin(dir)*speed,GameManager.cos(dir)*speed);
+        Vel = new Vec2(GameManager.cos(dir)*speed,GameManager.sin(dir)*speed);
+        Radius = .1f;
+        Height = hight;
+        Team = 0;
+        Speed = .1f;
+        Friction=.01f;
+    }
+
+    @Override
+    public boolean CanColl(int h)
+    {
+        return h <= Height;
+    }
+
+    @Override
+    public void OnCollide()
+    {
+        Dead = true;
     }
 
     @Override
@@ -25,14 +42,17 @@ public class Projectile extends Entity
     }
 
     @Override
-    public void draw(float x, float y, GameManager GM)
+    public void draw(GameManager GM, float x, float y, float rot, float scale)
     {
-        x=(Pos.x-x)*GM.Render.Zoom;
-        y=(Pos.y-y)*GM.Render.Zoom;
+        GM.pushMatrix();
+        GM.translate(x,y);
+        GM.rotate(rot);
 
         GM.ellipseMode(2);
         GM.fill(10);
         GM.stroke(30);
-        GM.ellipse(GM.P.Pos.x*GM.Render.Zoom, GM.P.Pos.y*GM.Render.Zoom, GM.P.Radius*GM.Render.Zoom, GM.P.Radius*GM.Render.Zoom);
+        GM.ellipse(0,0, Radius*scale, Radius*scale);
+
+        GM.popMatrix();
     }
 }

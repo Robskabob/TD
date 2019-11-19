@@ -37,6 +37,11 @@ public class RenderSystem  extends System
         GM.rect(0,0,GM.width,GM.height);
         Blocks(FocusX(),FocusY());
         Shading(FocusX(),FocusY());
+        for(int i = 0; i < GM.Entity.Entities.size(); i++)
+        {
+            Entity E = GM.Entity.Entities.get(i);
+            E.draw(GM,(E.Pos.x-GM.P.Pos.x)*Zoom+GM.width/2,(E.Pos.y-GM.P.Pos.y)*Zoom+GM.height/2,E.Rot,Zoom);
+        }
     }
 
     private void Blocks(float X,float Y)
@@ -49,8 +54,8 @@ public class RenderSystem  extends System
             for(int y = 0; y <GM.Map.Height; y++)
             {
                 int i = GM.Map.Map[x][y];
-                GM.fill(GM.BlockMap.get(i).Color);
-                GM.stroke(GM.BlockMap.get(i).Color);
+                GM.fill(GM.Map.BlockMap.get(i).Color);
+                GM.stroke(GM.Map.BlockMap.get(i).Color);
                 GM.rect((x-X)*Zoom,(y-Y)*Zoom,(x-X+1)*Zoom,(y-Y+1)*Zoom);
             }
         }
@@ -96,7 +101,7 @@ public class RenderSystem  extends System
             for(int y = 0; y <GM.Map.Height; y++)
             {
                 int i = GM.Map.Map[x][y];
-                GM.stroke(GM.BlockMap.get(i).Color);
+                GM.stroke(GM.Map.BlockMap.get(i).Color);
                 //if(i!=3)
                 //{
 
@@ -121,11 +126,11 @@ public class RenderSystem  extends System
                     left=GM.Map.Map[x-1][y];
                 }
 
-                Block I = GM.BlockMap.get(i);
+                Block I = GM.Map.BlockMap.get(i);
 
                 if(up!=i)
                 {
-                    ShadeLine(GM.BlockMap.get(up),I,x-X,y-Y,true);
+                    ShadeLine(GM.Map.BlockMap.get(up),I,x-X,y-Y,true);
                 }
                 else
                 {
@@ -134,7 +139,7 @@ public class RenderSystem  extends System
                 }
                 if(left!=i)
                 {
-                    ShadeLine(GM.BlockMap.get(left),I,x-X,y-Y,false);
+                    ShadeLine(GM.Map.BlockMap.get(left),I,x-X,y-Y,false);
                 }
                 else
                 {
