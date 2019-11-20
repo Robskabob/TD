@@ -3,10 +3,14 @@ package TD.Util;
 import TD.Main.GameManager;
 import javafx.util.Pair;
 
+import java.util.Map;
+
 public class Vec2
 {
     public float x;
     public float y;
+
+    public static final Vec2 Zero = new Vec2(0,0);
 
     public Vec2(float X, float Y)
     {
@@ -45,6 +49,10 @@ public class Vec2
     public float sqMag() {
         return x*x+y*y;
     }
+    public float Mag()
+    {
+        return GameManager.sq(sqMag());
+    }
 
     public Vec2 sub(Vec2 v) {
         return new Vec2(x-v.x,y-v.y);
@@ -52,7 +60,7 @@ public class Vec2
 
     public float Dist(Vec2 v)
     {
-        return GameManager.sq(sub(v).sqMag());
+        return sub(v).Mag();
     }
 
     public void Set(float X, float Y)
@@ -64,5 +72,14 @@ public class Vec2
     public boolean equals(Pair<Integer,Integer> I)
     {
         return x == I.getKey() && y == I.getValue();
+    }
+
+    public Vec2 normilize()
+    {
+        float len = Mag();
+        if (len > 0) {
+            return new Vec2(x /= len,y /= len);
+        }
+        return Zero;
     }
 }

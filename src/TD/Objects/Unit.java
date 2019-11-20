@@ -1,13 +1,18 @@
 package TD.Objects;
 
 import TD.Main.GameManager;
+import TD.System.PathSystem;
 
 public class Unit extends Mob
 {
+    public PathSystem.Path path;
 
     @Override
     public void Update(GameManager GM) {
-
+        if(path!=null)
+        {
+            Vel.Add(path.getNext(Pos).sub(Pos).normilize());
+        }
     }
 
     @Override

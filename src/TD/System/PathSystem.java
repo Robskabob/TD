@@ -104,6 +104,7 @@ public class PathSystem extends System {
     }
 
     public Node Sel;
+    public Node las;
     public void EditPath()
     {
         if(Sel == null)
@@ -112,28 +113,32 @@ public class PathSystem extends System {
             {
                 for(int i = 0; i < Nodes.size(); i++)
                 {
-                    Sel=null;
                     if(Nodes.get(i).Pos.sub(new Vec2(GM.MX,GM.MY)).sqMag()<1)
                     {
-                        if(GM.keyCode==GameManager.SHIFT) {
-                            Nodes.get(i).Connections.add(Sel);
-                            Sel.Connections.add(Nodes.get(i));
-                        }
-                        else
-                        {
-                            Sel = Nodes.get(i);
-                        }
-                        break;
+                        Sel = Nodes.get(i);
+                        return;
                     }
                 }
-                if(Sel==null) {
-                    Sel = new Node(GM.MX, GM.MY);
-                    Nodes.add(Sel);
-                }
+                Sel = new Node(GM.MX, GM.MY);
+                Nodes.add(Sel);
             }
         }
         else
         {
+            for(int i = 0; i < Nodes.size(); i++) {
+                Node N = Nodes.get(i);
+                if (N.Pos.sub(new Vec2(GM.MX, GM.MY)).sqMag() < 1) {
+                    if (GM.keyCode == GameManager.SHIFT) {
+                        N.Connections.add(Sel);
+                        Sel.Connections.add(N);
+                    }
+                    if (GM.keyCode == GameManager.CONTROL&&Sel.Connections.contains(N)) {
+
+                        N.Connections.remove(Sel);
+                        Sel.Connections.remove(N);
+                    }
+                }
+            }
             Sel.Pos.Set(GM.MX,GM.MY);
             if(GM.mousePressed&&GM.mouseButton==GameManager.RIGHT) {
             Sel=null;
@@ -156,7 +161,7 @@ public class PathSystem extends System {
             GM.ellipse((N.Pos.x-GM.P.Pos.x)*GM.Render.Zoom+GM.width/2,(N.Pos.y-GM.P.Pos.y)*GM.Render.Zoom+GM.height/2,GM.Render.Zoom/3,GM.Render.Zoom/3);
             for(int j = 0; j < N.Connections.size(); j++)
             {
-                GM.line(N.Pos.x,N.Pos.y,N.Connections.get(j).Pos.x,N.Connections.get(j).Pos.y);
+                GM.line((N.Pos.x-GM.P.Pos.x)*GM.Render.Zoom+GM.width/2,(N.Pos.y-GM.P.Pos.y)*GM.Render.Zoom+GM.height/2,(N.Connections.get(j).Pos.x-GM.P.Pos.x)*GM.Render.Zoom+GM.width/2,(N.Connections.get(j).Pos.y-GM.P.Pos.y)*GM.Render.Zoom+GM.height/2);
             }
         }
     }

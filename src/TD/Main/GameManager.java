@@ -97,8 +97,8 @@ public class GameManager extends PApplet
 
     public void draw(){
         Map.draw();
-        Render.draw();
         Entity.draw();
+        Render.draw();
         Pather.draw();
 
         textSize(32);
