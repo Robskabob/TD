@@ -1,5 +1,8 @@
 package TD.Util;
 
+import TD.Main.GameManager;
+import javafx.util.Pair;
+
 public class Vec2
 {
     public float x;
@@ -45,5 +48,21 @@ public class Vec2
 
     public Vec2 sub(Vec2 v) {
         return new Vec2(x-v.x,y-v.y);
+    }
+
+    public float Dist(Vec2 v)
+    {
+        return GameManager.sq(sub(v).sqMag());
+    }
+
+    public void Set(float X, float Y)
+    {
+        x = X;
+        y = Y;
+    }
+
+    public boolean equals(Pair<Integer,Integer> I)
+    {
+        return x == I.getKey() && y == I.getValue();
     }
 }

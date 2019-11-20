@@ -3,10 +3,8 @@ package TD.Main;
 import TD.Objects.Block;
 import TD.Objects.Entites.Tower;
 import TD.Objects.Entites.Player;
-import TD.System.EntitySystem;
-import TD.System.KeySystem;
-import TD.System.MapSystem;
-import TD.System.RenderSystem;
+import TD.System.*;
+import TD.Util.Vec2;
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 
@@ -17,6 +15,7 @@ public class GameManager extends PApplet
     public MapSystem Map = new MapSystem(this);
     public RenderSystem Render = new RenderSystem(this);
     public EntitySystem Entity = new EntitySystem(this);
+    public PathSystem Pather = new PathSystem(this);
     public KeySystem Key = new KeySystem(this);
     //End Systems
 
@@ -100,6 +99,7 @@ public class GameManager extends PApplet
         Map.draw();
         Render.draw();
         Entity.draw();
+        Pather.draw();
 
         textSize(32);
         fill(0, 0, 0);
@@ -154,6 +154,7 @@ public class GameManager extends PApplet
     public int MX;
     public int MY;
     public float MYF;
+
     public void mouseMoved()
     {
         MX=Math.round(mouseX/Render.Zoom+Render.FocusX());
