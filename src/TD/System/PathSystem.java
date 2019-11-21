@@ -24,6 +24,7 @@ public class PathSystem extends System {
         public ArrayList<Node> Connections = new ArrayList<>();
 
         public float number;
+        public float number2;
 
         //@Override
         //public int compareTo(Node o) {
@@ -38,35 +39,34 @@ public class PathSystem extends System {
 
     public class Path
     {
-        public Node[] path;
-        public int index = 0;
+        public ArrayList<Node> path;
 
-        public Path (Node[] nodes)
+        public Path (ArrayList<Node> nodes)
         {
             path = nodes;
         }
 
-        public boolean isEnd()
+        public boolean isEnd(int index)
         {
-            return index > path.length-1;
+            return index > path.size()-1;
         }
 
-        public Vec2 getNext(Vec2 c)
+        public Vec2 getNext(Vec2 c,int index)
         {
-            if(index>path.length-1)
+            if(index>path.size()-1)
             {
-                index = 0;
-                return Vec2.Zero;
+                //index = 0;
+                return c;
             }
-            if(c.Dist(path[index].Pos)<1)
+            if(c.Dist(path.get(index).Pos)<1)
             {
                 index++;
-                if(index>path.length-1)
+                if(index>path.size()-1)
                 {
-                    return Vec2.Zero;
+                    return c;
                 }
             }
-            return path[index].Pos;
+            return path.get(index).Pos;
         }
     }
 
@@ -74,8 +74,8 @@ public class PathSystem extends System {
     {
         HashMap<Node,Float> pathed = new HashMap<>();
         //ArrayList<Node> Queue = new ArrayList<Node>();
-        PriorityQueue<Pair<Node,Float>> Queue = new PriorityQueue<>((entry1, entry2) -> (int) (entry1.getValue() - entry2.getValue()));
-        Node L;
+        PriorityQueue<Pair<Pair<Node,Float>,Float>> Queue = new PriorityQueue<>((entry1, entry2) -> (int) (entry1.getValue() - entry2.getValue()));
+        Node L = Start;
         Node N = Start;
 
         pathed.put(Start, 0f);
@@ -86,13 +86,15 @@ public class PathSystem extends System {
                 if (pathed.containsKey(O)) {
                     continue;
                 }
-                Queue.add(new Pair<>(O,O.Pos.Dist(End.Pos)));
+                O.number2 = O.Pos.Dist(End.Pos)+pathed.get(N);
+                Queue.add(new Pair<>(new Pair<>(O,pathed.get(N)),O.Pos.Dist(End.Pos)+pathed.get(N)));
             }
             if(N!=null) {
                 L = N;
-                N = Queue.poll().getKey();
-                N.number = N.Pos.Dist(L.Pos) + pathed.get(L);//testing only
-                pathed.put(N, N.Pos.Dist(L.Pos) + pathed.get(L));
+                Pair<Node,Float> p = Queue.poll().getKey();
+                N = p.getKey();
+                N.number = N.Pos.Dist(L.Pos) + p.getValue();//testing only
+                pathed.put(N, N.Pos.Dist(L.Pos) + p.getValue());
             }
             else
             {
@@ -100,7 +102,7 @@ public class PathSystem extends System {
                 {
                     break;
                 }
-                N = Queue.poll().getKey();
+                N = Queue.poll().getKey().getKey();
             }
         }
 
@@ -110,7 +112,7 @@ public class PathSystem extends System {
         }
 
         ArrayList<Node> path = new ArrayList<Node>();
-        while (N != End)
+        while (N != Start)
         {
             float Min = Float.MAX_VALUE;
             Node m = null;
@@ -135,7 +137,7 @@ public class PathSystem extends System {
             N = m;
         }
         path.add(Start);
-        return new Path(path.toArray(new Node[1]));
+        return new Path(path);
     }
 
     private Node Sel;
@@ -255,9 +257,11 @@ public class PathSystem extends System {
             if(GM.GetKey('c'))
             {
                 N.number = 0;
+                N.number2 = 0;
             }
             GM.fill(0);
             GM.text(N.number,(N.Pos.x-GM.P.Pos.x)*GM.Render.Zoom+GM.width/2,(N.Pos.y-GM.P.Pos.y)*GM.Render.Zoom+GM.height/2);
+            GM.text(N.number2,(N.Pos.x-GM.P.Pos.x+1)*GM.Render.Zoom+GM.width/2,(N.Pos.y-GM.P.Pos.y+1)*GM.Render.Zoom+GM.height/2);
         }
     }
 }

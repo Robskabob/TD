@@ -6,24 +6,26 @@ import TD.Util.Vec2;
 
 public class Unit extends Mob
 {
+    private int pathIndex;
     public PathSystem.Path path;
 
     public Unit(PathSystem.Path Path)
     {
         path = Path;
-        Pos = new Vec2(path.path[0].Pos);
+        Pos = new Vec2(path.path.get(0).Pos);
         Vel = Vec2.Zero;
         Radius=.3f;
         Height = 1;
         Team = 5;
         Speed = .2f;
         Friction = .5f;
+        pathIndex = 0;
     }
 
     @Override
     public void Update(GameManager GM) {
-        Vel.Add(path.getNext(Pos).sub(Pos).normilize().mult(Speed));
-        if(path.isEnd())
+        Vel.Add(path.getNext(Pos,pathIndex).sub(Pos).normilize().mult(Speed));
+        if(path.isEnd(pathIndex))
             Dead = true;
     }
 
