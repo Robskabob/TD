@@ -2,10 +2,16 @@ package TD.Objects;
 
 import TD.Main.GameManager;
 import TD.System.PathSystem;
+import TD.Util.Vec2;
 
 public class Unit extends Mob
 {
     public PathSystem.Path path;
+
+    public Unit(PathSystem.Path Path)
+    {
+        //Pos = path.
+    }
 
     @Override
     public void Update(GameManager GM) {

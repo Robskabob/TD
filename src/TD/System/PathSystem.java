@@ -1,6 +1,7 @@
 package TD.System;
 
 import TD.Main.GameManager;
+import TD.Objects.Unit;
 import TD.Util.Vec2;
 import javafx.util.Pair;
 
@@ -103,8 +104,18 @@ public class PathSystem extends System {
         return new Path(path);
     }
 
-    public Node Sel;
+    private Node Sel;
     public Node las;
+
+    public Node getSel() {
+        return Sel;
+    }
+
+    public void setSel(Node sel) {
+        las = Sel;
+        Sel = sel;
+    }
+
     public void EditPath()
     {
         if(Sel == null)
@@ -113,35 +124,61 @@ public class PathSystem extends System {
             {
                 for(int i = 0; i < Nodes.size(); i++)
                 {
-                    if(Nodes.get(i).Pos.sub(new Vec2(GM.MX,GM.MY)).sqMag()<1)
+                    Node N = Nodes.get(i);
+                    if(GM.GetKey('g')&&N.Pos.sub(new Vec2(GM.MX,GM.MY)).sqMag()<1)
                     {
-                        Sel = Nodes.get(i);
+                        if(Sel!=null)
+                        las = Sel;
+                        Sel = N;
                         return;
                     }
+                    if (N.Pos.sub(new Vec2(GM.MX, GM.MY)).sqMag() < 1) {
+                        if (GM.keyCode == GameManager.SHIFT) {
+                            N.Connections.add(las);
+                            las.Connections.add(N);
+                            return;
+                        }
+                        if (GM.keyCode == GameManager.CONTROL&&las.Connections.contains(N)) {
+                            N.Connections.remove(las);
+                            las.Connections.remove(N);
+                            return;
+                        }
+                        if(Sel!=null)
+                            las = Sel;
+                            Sel = N;
+                    }
+
+
                 }
-                Sel = new Node(GM.MX, GM.MY);
-                Nodes.add(Sel);
+                if(GM.GetKey('n')) {
+                    if(Sel!=null)
+                    las = Sel;
+                    Sel = new Node(GM.MX, GM.MY);
+                    Nodes.add(Sel);
+                    return;
+                }
             }
         }
         else
         {
-            for(int i = 0; i < Nodes.size(); i++) {
-                Node N = Nodes.get(i);
-                if (N.Pos.sub(new Vec2(GM.MX, GM.MY)).sqMag() < 1) {
-                    if (GM.keyCode == GameManager.SHIFT) {
-                        N.Connections.add(Sel);
-                        Sel.Connections.add(N);
-                    }
-                    if (GM.keyCode == GameManager.CONTROL&&Sel.Connections.contains(N)) {
-
-                        N.Connections.remove(Sel);
-                        Sel.Connections.remove(N);
-                    }
-                }
-            }
+            //for(int i = 0; i < Nodes.size(); i++) {
+            //    Node N = Nodes.get(i);
+            //    if (N.Pos.sub(new Vec2(GM.MX, GM.MY)).sqMag() < 1) {
+            //        if (GM.keyCode == GameManager.SHIFT) {
+            //            N.Connections.add(Sel);
+            //            Sel.Connections.add(N);
+            //        }
+            //        if (GM.keyCode == GameManager.CONTROL&&Sel.Connections.contains(N)) {
+            //            N.Connections.remove(Sel);
+            //            Sel.Connections.remove(N);
+            //        }
+            //    }
+            //}
             Sel.Pos.Set(GM.MX,GM.MY);
             if(GM.mousePressed&&GM.mouseButton==GameManager.RIGHT) {
-            Sel=null;
+                if(Sel!=null)
+                las = Sel;
+                Sel=null;
             }
         }
     }
@@ -157,7 +194,22 @@ public class PathSystem extends System {
         for(int i = 0; i < Nodes.size(); i++)
         {
             Node N = Nodes.get(i);
-            GM.fill(200,100,100);
+            if(Sel==N)
+            {
+                GM.fill(100,100,200);
+            }
+            else if(las==N)
+            {
+                GM.fill(100,200,100);
+            }
+            else
+            {
+                GM.fill(150,100,100);
+            }
+            if(GM.GetKey('u'))
+            {
+                GM.Entity.Entities.add(new Unit());
+            }
             GM.ellipse((N.Pos.x-GM.P.Pos.x)*GM.Render.Zoom+GM.width/2,(N.Pos.y-GM.P.Pos.y)*GM.Render.Zoom+GM.height/2,GM.Render.Zoom/3,GM.Render.Zoom/3);
             for(int j = 0; j < N.Connections.size(); j++)
             {
