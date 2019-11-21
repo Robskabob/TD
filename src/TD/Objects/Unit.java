@@ -10,21 +10,15 @@ public class Unit extends Mob
 
     public Unit(PathSystem.Path Path)
     {
-        path = Path;
-        Pos = new Vec2(path.path.get(0).Pos);
-        Vel = Vec2.Zero;
-        Radius=.3f;
-        Height = 1;
-        Team = 5;
-        Speed = .2f;
-        Friction = .5f;
+        //Pos = path.
     }
 
     @Override
     public void Update(GameManager GM) {
-        Vel.Add(path.getNext(Pos).sub(Pos).normilize().mult(Speed));
-        if(path.isEnd())
-            Dead = true;
+        if(path!=null)
+        {
+            Vel.Add(path.getNext(Pos).sub(Pos).normilize());
+        }
     }
 
     @Override
