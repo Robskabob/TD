@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8cf203fb-d9f2-45a8-ac75-af3f3b3aba8f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TD/Objects/Unit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TD/Objects/Unit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TD/System/PathSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TD/System/PathSystem.java" afterDir="false" />
-    </list>
+    <list default="true" id="8cf203fb-d9f2-45a8-ac75-af3f3b3aba8f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +20,9 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1908" />
@@ -33,6 +30,7 @@
     <option name="height" value="2112" />
   </component>
   <component name="ProjectId" id="1TnMeE5uvNzOehRi4nVh4zkZJde" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
