@@ -96,14 +96,7 @@
       <option name="project" value="LOCAL" />
       <updated>1574291377860</updated>
     </task>
-    <task id="LOCAL-00003" summary="more path stuff">
-      <created>1574295129039</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1574295129039</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -136,7 +129,6 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="path createion" />
     <MESSAGE value="gitnore?" />
-    <MESSAGE value="more path stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="more path stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="gitnore?" />
   </component>
 </project>

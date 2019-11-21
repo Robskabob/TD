@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TD:jar">
+    <output-path>$USER_HOME$/Downloads</output-path>
+    <root id="archive" name="TD.jar">
+      <element id="module-output" name="TD" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Java/processing-3.5.3/core/library/core.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
