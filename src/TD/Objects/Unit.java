@@ -11,7 +11,7 @@ public class Unit extends Mob
     public Unit(PathSystem.Path Path)
     {
         path = Path;
-        Pos = new Vec2(path.path.get(0).Pos);
+        Pos = new Vec2(path.path[0].Pos);
         Vel = Vec2.Zero;
         Radius=.3f;
         Height = 1;

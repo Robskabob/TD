@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8cf203fb-d9f2-45a8-ac75-af3f3b3aba8f" name="Default Changelist" comment="" />
+    <list default="true" id="8cf203fb-d9f2-45a8-ac75-af3f3b3aba8f" name="Default Changelist" comment="gitnore?">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/TD_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TD/META-INF/TD.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TD/Objects/Unit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TD/Objects/Unit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TD/System/PathSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TD/System/PathSystem.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +40,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />

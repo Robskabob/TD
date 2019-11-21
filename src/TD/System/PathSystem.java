@@ -23,6 +23,8 @@ public class PathSystem extends System {
         public Vec2 Pos;
         public ArrayList<Node> Connections = new ArrayList<>();
 
+        public float number;
+
         //@Override
         //public int compareTo(Node o) {
         //    if(id>b.id){
@@ -36,35 +38,35 @@ public class PathSystem extends System {
 
     public class Path
     {
-        public List<Node> path;
+        public Node[] path;
         public int index = 0;
 
-        public Path (ArrayList<Node> nodes)
+        public Path (Node[] nodes)
         {
             path = nodes;
         }
 
         public boolean isEnd()
         {
-            return index > path.size()-1;
+            return index > path.length-1;
         }
 
         public Vec2 getNext(Vec2 c)
         {
-            if(index>path.size()-1)
+            if(index>path.length-1)
             {
                 index = 0;
                 return Vec2.Zero;
             }
-            if(c.Dist(path.get(index).Pos)<1)
+            if(c.Dist(path[index].Pos)<1)
             {
                 index++;
-                if(index>path.size()-1)
+                if(index>path.length-1)
                 {
                     return Vec2.Zero;
                 }
             }
-            return path.get(index).Pos;
+            return path[index].Pos;
         }
     }
 
@@ -72,7 +74,7 @@ public class PathSystem extends System {
     {
         HashMap<Node,Float> pathed = new HashMap<>();
         //ArrayList<Node> Queue = new ArrayList<Node>();
-        PriorityQueue<Pair<Node,Float>> Queue = new PriorityQueue<>((entry1, entry2) -> (int) (entry2.getValue() - entry1.getValue()));
+        PriorityQueue<Pair<Node,Float>> Queue = new PriorityQueue<>((entry1, entry2) -> (int) (entry1.getValue() - entry2.getValue()));
         Node L;
         Node N = Start;
 
@@ -89,6 +91,7 @@ public class PathSystem extends System {
             if(N!=null) {
                 L = N;
                 N = Queue.poll().getKey();
+                N.number = N.Pos.Dist(L.Pos) + pathed.get(L);//testing only
                 pathed.put(N, N.Pos.Dist(L.Pos) + pathed.get(L));
             }
             else
@@ -101,14 +104,23 @@ public class PathSystem extends System {
             }
         }
 
+        if(N==null)
+        {
+            N=End;
+        }
+
         ArrayList<Node> path = new ArrayList<Node>();
-        while (N != Start)
+        while (N != End)
         {
             float Min = Float.MAX_VALUE;
             Node m = null;
-
+            if(N==null)
+            {
+                break;
+            }
             for(int i = 0; i < N.Connections.size(); i++)
             {
+                if(pathed.containsKey(N.Connections.get(i)))
                 if(pathed.get(N.Connections.get(i)) < Min)
                 {
                     Min = pathed.get(N.Connections.get(i));
@@ -123,7 +135,7 @@ public class PathSystem extends System {
             N = m;
         }
         path.add(Start);
-        return new Path(path);
+        return new Path(path.toArray(new Node[1]));
     }
 
     private Node Sel;
@@ -155,7 +167,7 @@ public class PathSystem extends System {
                         return;
                     }
                     if (N.Pos.sub(new Vec2(GM.MX, GM.MY)).sqMag() < 1) {
-                        if (GM.keyCode == GameManager.SHIFT) {
+                        if (GM.keyCode == GameManager.SHIFT&&!las.Connections.contains(N)) {
                             N.Connections.add(las);
                             las.Connections.add(N);
                             return;
@@ -196,7 +208,9 @@ public class PathSystem extends System {
             //        }
             //    }
             //}
-            Sel.Pos.Set(GM.MX,GM.MY);
+            if(GM.GetKey('m')) {
+                Sel.Pos.Set(GM.MX, GM.MY);
+            }
             if(GM.mousePressed&&GM.mouseButton==GameManager.RIGHT) {
                 if(Sel!=null)
                 las = Sel;
@@ -238,6 +252,12 @@ public class PathSystem extends System {
             {
                 GM.line((N.Pos.x-GM.P.Pos.x)*GM.Render.Zoom+GM.width/2,(N.Pos.y-GM.P.Pos.y)*GM.Render.Zoom+GM.height/2,(N.Connections.get(j).Pos.x-GM.P.Pos.x)*GM.Render.Zoom+GM.width/2,(N.Connections.get(j).Pos.y-GM.P.Pos.y)*GM.Render.Zoom+GM.height/2);
             }
+            if(GM.GetKey('c'))
+            {
+                N.number = 0;
+            }
+            GM.fill(0);
+            GM.text(N.number,(N.Pos.x-GM.P.Pos.x)*GM.Render.Zoom+GM.width/2,(N.Pos.y-GM.P.Pos.y)*GM.Render.Zoom+GM.height/2);
         }
     }
 }
