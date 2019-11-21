@@ -51,7 +51,7 @@ public class Vec2
     }
     public float Mag()
     {
-        return GameManager.sq(sqMag());
+        return GameManager.sqrt(sqMag());
     }
 
     public Vec2 sub(Vec2 v) {
@@ -78,8 +78,13 @@ public class Vec2
     {
         float len = Mag();
         if (len > 0) {
-            return new Vec2(x /= len,y /= len);
+            return divide(len);
         }
         return Zero;
+    }
+
+    public Vec2 mult(float val)
+    {
+        return new Vec2(x*val,y*val);
     }
 }

@@ -5,10 +5,7 @@ import TD.Objects.Unit;
 import TD.Util.Vec2;
 import javafx.util.Pair;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class PathSystem extends System {
     public PathSystem(GameManager gm) {
@@ -49,31 +46,39 @@ public class PathSystem extends System {
 
         public boolean isEnd()
         {
-            return index == path.size();
+            return index > path.size()-1;
         }
 
         public Vec2 getNext(Vec2 c)
         {
-            if(c.sqMag()-path.get(index).Pos.sqMag()<1)
+            if(index>path.size()-1)
+            {
+                index = 0;
+                return Vec2.Zero;
+            }
+            if(c.Dist(path.get(index).Pos)<1)
             {
                 index++;
+                if(index>path.size()-1)
+                {
+                    return Vec2.Zero;
+                }
             }
             return path.get(index).Pos;
         }
     }
 
-    public Path GetPath(Node Start,Node End)//remake
+    public Path GetPath(Node Start,Node End)
     {
         HashMap<Node,Float> pathed = new HashMap<>();
         //ArrayList<Node> Queue = new ArrayList<Node>();
-        PriorityQueue<Pair<Node,Float>> Queue = new PriorityQueue<>();
-
-
-        Node L = null;
+        PriorityQueue<Pair<Node,Float>> Queue = new PriorityQueue<>((entry1, entry2) -> (int) (entry2.getValue() - entry1.getValue()));
+        Node L;
         Node N = Start;
+
+        pathed.put(Start, 0f);
         while(N!=End)
         {
-            pathed.put(N, N.Pos.Dist(L.Pos)+pathed.get(L));
             for (int i = 0; i < N.Connections.size(); i++) {
                 Node O = N.Connections.get(i);
                 if (pathed.containsKey(O)) {
@@ -81,8 +86,21 @@ public class PathSystem extends System {
                 }
                 Queue.add(new Pair<>(O,O.Pos.Dist(End.Pos)));
             }
-            N = Queue.poll().getKey();
+            if(N!=null) {
+                L = N;
+                N = Queue.poll().getKey();
+                pathed.put(N, N.Pos.Dist(L.Pos) + pathed.get(L));
+            }
+            else
+            {
+                if(Queue.isEmpty())
+                {
+                    break;
+                }
+                N = Queue.poll().getKey();
+            }
         }
+
         ArrayList<Node> path = new ArrayList<Node>();
         while (N != Start)
         {
@@ -91,16 +109,20 @@ public class PathSystem extends System {
 
             for(int i = 0; i < N.Connections.size(); i++)
             {
-                if(pathed.get(N.Connections.get(i)) > Min)
+                if(pathed.get(N.Connections.get(i)) < Min)
                 {
                     Min = pathed.get(N.Connections.get(i));
                     m = N.Connections.get(i);
                 }
             }
             path.add(N);
+            if(m==null)
+            {
+                break;
+            }
             N = m;
         }
-
+        path.add(Start);
         return new Path(path);
     }
 
@@ -208,7 +230,8 @@ public class PathSystem extends System {
             }
             if(GM.GetKey('u'))
             {
-                GM.Entity.Entities.add(new Unit());
+                if(las!=null&&Sel!=null)
+                    GM.Entity.Entities.add(new Unit(GetPath(las,Sel)));
             }
             GM.ellipse((N.Pos.x-GM.P.Pos.x)*GM.Render.Zoom+GM.width/2,(N.Pos.y-GM.P.Pos.y)*GM.Render.Zoom+GM.height/2,GM.Render.Zoom/3,GM.Render.Zoom/3);
             for(int j = 0; j < N.Connections.size(); j++)
