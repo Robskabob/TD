@@ -1,7 +1,7 @@
 package TD.Objects;
 
-import TD.Main.GameManager;
 import TD.Util.Vec2;
+import processing.core.PApplet;
 
 public abstract class Entity
 {
@@ -12,13 +12,13 @@ public abstract class Entity
     public int Team;
     public boolean Dead = false;
 
-    public void Physics(GameManager GM) {   }
+    public void Physics(PApplet GM) {   }
 
-    public abstract void Update(GameManager GM);
+    public abstract void Update(PApplet GM);
 
     //change to imput x y scale rot transfor pop push inside
 
-    public abstract void draw(GameManager GM, float x, float y, float rot, float scale);
+    public abstract void draw(PApplet GM, float x, float y, float rot, float scale);
     //{
     //    GM.ellipseMode(2);
     //    GM.fill(10);
