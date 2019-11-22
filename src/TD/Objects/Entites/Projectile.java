@@ -3,6 +3,7 @@ package TD.Objects.Entites;
 import TD.Main.GameManager;
 import TD.Objects.Mob;
 import TD.Util.Vec2;
+import processing.core.PApplet;
 
 public class Projectile extends Mob
 {
@@ -32,7 +33,7 @@ public class Projectile extends Mob
     }
 
     @Override
-    public void Update(GameManager GM)
+    public void Update(PApplet GM)
     {
         life--;
         if(life<0)
@@ -42,7 +43,7 @@ public class Projectile extends Mob
     }
 
     @Override
-    public void draw(GameManager GM, float x, float y, float rot, float scale)
+    public void draw(PApplet GM, float x, float y, float rot, float scale)
     {
         GM.pushMatrix();
         GM.translate(x,y);

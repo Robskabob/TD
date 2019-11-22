@@ -3,6 +3,7 @@ package TD.Objects.Entites;
 import TD.Main.GameManager;
 import TD.Objects.Mob;
 import TD.Util.Vec2;
+import processing.core.PApplet;
 
 public class Player extends Mob {
     public Player(float x,float y,float radius,int hight,int team)
@@ -17,33 +18,33 @@ public class Player extends Mob {
     }
 
     @Override
-    public void Update(GameManager GM)
+    public void Update(PApplet GM)
     {
         Rot = GM.atan2(GM.mouseY-(GM.height/2),GM.mouseX-(GM.width/2));
-        if(GM.GetKey('w'))
+        if(GameManager.GM.GetKey('w'))
         {
             Vel.y -= Speed;
         }
-        if(GM.GetKey('a'))
+        if(GameManager.GM.GetKey('a'))
         {
             Vel.x-=Speed;
         }
-        if(GM.GetKey('s'))
+        if(GameManager.GM.GetKey('s'))
         {
             Vel.y+=Speed;
         }
-        if(GM.GetKey('d'))
+        if(GameManager.GM.GetKey('d'))
         {
             Vel.x+=Speed;
         }
-        if(GM.mousePressed && GM.mouseButton == GameManager.LEFT)
+        if(GameManager.GM.mousePressed && GM.mouseButton == GameManager.LEFT)
         {
-            GM.Entity.Add(new Projectile(Pos,Rot,.5f,Height+1));
+            GameManager.GM.Entity.Add(new Projectile(Pos,Rot,.5f,Height+1));
         }
     }
 
     @Override
-    public void draw(GameManager GM, float x, float y, float rot, float scale)
+    public void draw(PApplet GM, float x, float y, float rot, float scale)
     {
         GM.pushMatrix();
         GM.translate(x,y);

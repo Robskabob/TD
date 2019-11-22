@@ -17,9 +17,16 @@ public class MapSystem extends System {
     }
 
     public void setup() {
-        Width = 100;
-        Height = 100;
+        Width = 150;
+        Height = 150;
         Map = new int[Width][Height];
+        for(int i = 0; i < Width; i++)
+        {
+            for(int j = 0; j < Width; j++)
+            {
+                Map[i][j] = 2;
+            }
+        }
     }
 
     @Override

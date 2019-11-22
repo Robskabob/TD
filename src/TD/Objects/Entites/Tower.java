@@ -3,6 +3,7 @@ package TD.Objects.Entites;
 import TD.Main.GameManager;
 import TD.Objects.Entity;
 import TD.Util.Vec2;
+import processing.core.PApplet;
 
 public class Tower extends Entity
 {
@@ -13,12 +14,12 @@ public class Tower extends Entity
     }
 
     @Override
-    public void Update(GameManager GM) {
-        Rot = GM.atan2(GM.P.Pos.y-Pos.y-Radius/2,GM.P.Pos.x-Pos.x-Radius/2);
+    public void Update(PApplet GM) {
+        Rot = GM.atan2(GameManager.GM.P.Pos.y-Pos.y-Radius/2,GameManager.GM.P.Pos.x-Pos.x-Radius/2);
     }
 
     @Override
-    public void draw(GameManager GM, float x, float y, float rot, float scale) {
+    public void draw(PApplet GM, float x, float y, float rot, float scale) {
         GM.pushMatrix();
         GM.translate(x,y);
 

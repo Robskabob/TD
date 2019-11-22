@@ -37,10 +37,10 @@ public class RenderSystem  extends System
         GM.rect(0,0,GM.width,GM.height);
         Blocks(FocusX(),FocusY());
         Shading(FocusX(),FocusY());
-        for(int i = 0; i < GM.Entity.Entities.size(); i++)
+        for(int i = 0; i < GameManager.GM.Entity.Entities.size(); i++)
         {
-            Entity E = GM.Entity.Entities.get(i);
-            E.draw(GM,(E.Pos.x-GM.P.Pos.x)*Zoom+GM.width/2,(E.Pos.y-GM.P.Pos.y)*Zoom+GM.height/2,E.Rot,Zoom);
+            Entity E = GameManager.GM.Entity.Entities.get(i);
+            E.draw(GM,(E.Pos.x-GameManager.GM.P.Pos.x)*Zoom+GM.width/2,(E.Pos.y-GameManager.GM.P.Pos.y)*Zoom+GM.height/2,E.Rot,Zoom);
         }
     }
 
@@ -49,13 +49,13 @@ public class RenderSystem  extends System
         GM.rectMode(1);
         GM.strokeWeight(Zoom/10);
         //GM.noStroke();
-        for(int x = 0; x <GM.Map.Width; x++)
+        for(int x = 0; x <GameManager.GM.Map.Width; x++)
         {
-            for(int y = 0; y <GM.Map.Height; y++)
+            for(int y = 0; y <GameManager.GM.Map.Height; y++)
             {
-                int i = GM.Map.Map[x][y];
-                GM.fill(GM.Map.BlockMap.get(i).Color);
-                GM.stroke(GM.Map.BlockMap.get(i).Color);
+                int i = GameManager.GM.Map.Map[x][y];
+                GM.fill(GameManager.GM.Map.BlockMap.get(i).Color);
+                GM.stroke(GameManager.GM.Map.BlockMap.get(i).Color);
                 GM.rect((x-X)*Zoom,(y-Y)*Zoom,(x-X+1)*Zoom,(y-Y+1)*Zoom);
             }
         }
@@ -67,7 +67,7 @@ public class RenderSystem  extends System
         GM.strokeWeight(Zoom/3);
         if(O.Depth==I.Depth)
         {
-            GM.stroke(GM.colorAverage(O.Color,Ic));
+            GM.stroke(GameManager.GM.colorAverage(O.Color,Ic));
             GM.colorMode(1);
         }
         else if(O.Depth>I.Depth)
@@ -96,12 +96,12 @@ public class RenderSystem  extends System
     private void Shading(float X,float Y)
     {
         GM.strokeWeight(Zoom/2);
-        for(int x = 0; x <GM.Map.Width; x++)
+        for(int x = 0; x <GameManager.GM.Map.Width; x++)
         {
-            for(int y = 0; y <GM.Map.Height; y++)
+            for(int y = 0; y <GameManager.GM.Map.Height; y++)
             {
-                int i = GM.Map.Map[x][y];
-                GM.stroke(GM.Map.BlockMap.get(i).Color);
+                int i = GameManager.GM.Map.Map[x][y];
+                GM.stroke(GameManager.GM.Map.BlockMap.get(i).Color);
                 //if(i!=3)
                 //{
 
@@ -115,7 +115,7 @@ public class RenderSystem  extends System
                 }
                 else
                 {
-                    up=GM.Map.Map[x][y-1];
+                    up=GameManager.GM.Map.Map[x][y-1];
                 }
                 if(x-1<0)
                 {
@@ -123,14 +123,14 @@ public class RenderSystem  extends System
                 }
                 else
                 {
-                    left=GM.Map.Map[x-1][y];
+                    left=GameManager.GM.Map.Map[x-1][y];
                 }
 
-                Block I = GM.Map.BlockMap.get(i);
+                Block I = GameManager.GM.Map.BlockMap.get(i);
 
                 if(up!=i)
                 {
-                    ShadeLine(GM.Map.BlockMap.get(up),I,x-X,y-Y,true);
+                    ShadeLine(GameManager.GM.Map.BlockMap.get(up),I,x-X,y-Y,true);
                 }
                 else
                 {
@@ -139,7 +139,7 @@ public class RenderSystem  extends System
                 }
                 if(left!=i)
                 {
-                    ShadeLine(GM.Map.BlockMap.get(left),I,x-X,y-Y,false);
+                    ShadeLine(GameManager.GM.Map.BlockMap.get(left),I,x-X,y-Y,false);
                 }
                 else
                 {

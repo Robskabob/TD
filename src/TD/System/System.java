@@ -1,11 +1,12 @@
 package TD.System;
 
 import TD.Main.GameManager;
+import processing.core.PApplet;
 
 public abstract class System {
-    protected GameManager GM;
+    protected PApplet GM;
 
-    public System(GameManager gm) {
+    public System(PApplet gm) {
         GM = gm;
     }
 

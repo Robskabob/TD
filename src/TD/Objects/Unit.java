@@ -1,10 +1,11 @@
 package TD.Objects;
 
-import TD.Main.GameManager;
+import TD.Objects.Interfaces.Pather;
 import TD.System.PathSystem;
 import TD.Util.Vec2;
+import processing.core.PApplet;
 
-public class Unit extends Mob
+public class Unit extends Mob implements Pather
 {
     private int pathIndex;
     public PathSystem.Path path;
@@ -13,24 +14,24 @@ public class Unit extends Mob
     {
         path = Path;
         Pos = new Vec2(path.path.get(0).Pos);
-        Vel = Vec2.Zero;
+        Vel = new Vec2(0,0);
         Radius=.3f;
         Height = 1;
         Team = 5;
-        Speed = .2f;
-        Friction = .5f;
+        Speed = .1f;
+        Friction = .2f;
         pathIndex = 0;
     }
 
     @Override
-    public void Update(GameManager GM) {
-        Vel.Add(path.getNext(Pos,pathIndex).sub(Pos).normilize().mult(Speed));
-        if(path.isEnd(pathIndex))
+    public void Update(PApplet GM) {
+        Vel.Add(path.getNext(Pos,this).sub(Pos).normilize().mult(Speed));
+        if(path.isEnd(this))
             Dead = true;
     }
 
     @Override
-    public void draw(GameManager GM, float x, float y, float rot, float scale) {
+    public void draw(PApplet GM, float x, float y, float rot, float scale) {
         GM.pushMatrix();
         GM.translate(x,y);
         GM.rotate(rot);
@@ -42,5 +43,15 @@ public class Unit extends Mob
         GM.ellipse(0, 0, Radius*scale, Radius*scale);
 
         GM.popMatrix();
+    }
+
+    @Override
+    public int GetPathIndex() {
+        return pathIndex;
+    }
+
+    @Override
+    public void SetPathIndex(int i) {
+        pathIndex = i;
     }
 }
