@@ -25,7 +25,7 @@ public class UISystem extends System
         for(int i = 0; i < Elements.size(); i++)
         {
             Element E = Elements.get(i);
-            E.draw();
+            E.draw(GM,T);
         }
     }
 }
