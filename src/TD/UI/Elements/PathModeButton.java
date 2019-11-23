@@ -3,12 +3,10 @@ package TD.UI.Elements;
 import TD.Util.Vec2;
 
 import TD.UI.Elements.PathEditorUI.*;
+import processing.core.PApplet;
 
-public class PathModeButton implements Button
+public class PathModeButton extends Button
 {
-    private Vec2 Pos;
-    private Vec2 Scale;
-
     public PathModeButton(Vec2 pos, Vec2 scale, PathMode m)
     {
         Pos = pos;
@@ -16,8 +14,8 @@ public class PathModeButton implements Button
         Mode = m;
     }
 
-
     PathMode Mode;
+    boolean over;
 
     @Override
     public char ShortCut() {
@@ -31,31 +29,29 @@ public class PathModeButton implements Button
 
     @Override
     public void Selected() {
-
+        Selected = true;
     }
 
     @Override
     public void DeSelect() {
-
+        Selected = false;
     }
 
     @Override
-    public Vec2 GetPos() {
-        return null;
+    public void MouseOver() {
+        over = true;
     }
 
-    @Override
-    public Vec2 GetScale() {
-        return null;
-    }
-
-    @Override
-    public void SetPos(Vec2 val) {
-
-    }
-
-    @Override
-    public void SetScale(Vec2 val) {
-
+    public void draw(PApplet PA, Theme T)
+    {
+        if(Selected)
+            PA.fill(90,90,150);
+        else if(over)
+            PA.fill(95,95,100);
+        else
+            PA.fill(90,90,90);
+        PA.stroke(T.WindowBorder);
+        PA.rect(Pos.x,Pos.y,Pos.x+Scale.x,Pos.y+Scale.y);
+        over = false;
     }
 }

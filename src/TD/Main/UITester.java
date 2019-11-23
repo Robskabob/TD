@@ -5,6 +5,10 @@ import processing.core.PApplet;
 
 public class UITester extends PApplet
 {
+    public static void main(String[] args) {
+        PApplet.main("TD.Main.UITester");
+    }
+
     public UISystem UI = new UISystem(this);
 
     public void settings(){

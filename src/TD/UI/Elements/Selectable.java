@@ -10,6 +10,8 @@ public interface Selectable
     void Selected();
     void DeSelect();
 
+    void MouseOver();
+
     Vec2 GetPos();
     Vec2 GetScale();
     void SetPos(Vec2 val);

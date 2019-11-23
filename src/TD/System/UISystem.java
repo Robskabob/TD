@@ -2,6 +2,7 @@ package TD.System;
 
 import TD.Main.GameManager;
 import TD.UI.Elements.Element;
+import TD.UI.Elements.PathEditorUI;
 import TD.UI.Elements.Selectable;
 import TD.UI.Elements.Theme;
 import processing.core.PApplet;
@@ -25,7 +26,7 @@ public class UISystem extends System
 
     @Override
     public void setup() {
-
+        Elements.add(new PathEditorUI(this));
     }
 
     @Override
@@ -39,6 +40,7 @@ public class UISystem extends System
                 Selectable S = (Selectable)E;
                 if(IsMouseOver(S))
                 {
+                    S.MouseOver();
                     if(GM.mousePressed&&GM.mouseButton==PApplet.LEFT)
                     {
                         if(Sel != null)
