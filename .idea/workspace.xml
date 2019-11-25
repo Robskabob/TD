@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8cf203fb-d9f2-45a8-ac75-af3f3b3aba8f" name="Default Changelist" comment="" />
+    <list default="true" id="8cf203fb-d9f2-45a8-ac75-af3f3b3aba8f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TD/Main/UITester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TD/Main/UITester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TD/System/UISystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TD/System/UISystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TD/UI/Elements/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TD/UI/Elements/Button.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TD/UI/Elements/PathEditorUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TD/UI/Elements/PathEditorUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TD/UI/Elements/PathModeButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TD/UI/Elements/PathModeButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TD/UI/Elements/Selectable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TD/UI/Elements/Selectable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TD/UI/Elements/TowerButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TD/UI/Elements/TowerButton.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,14 +141,7 @@
       <option name="project" value="LOCAL" />
       <updated>1574461809335</updated>
     </task>
-    <task id="LOCAL-00006" summary="pathui more">
-      <created>1574473217414</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1574473217414</updated>
-    </task>
-    <option name="localTasksCounter" value="7" />
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -175,7 +177,6 @@
     <MESSAGE value="more path hope fixed" />
     <MESSAGE value="it works now doing final modifications" />
     <MESSAGE value="pathui" />
-    <MESSAGE value="pathui more" />
-    <option name="LAST_COMMIT_MESSAGE" value="pathui more" />
+    <option name="LAST_COMMIT_MESSAGE" value="pathui" />
   </component>
 </project>
