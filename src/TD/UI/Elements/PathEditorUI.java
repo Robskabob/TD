@@ -1,6 +1,7 @@
 package TD.UI.Elements;
 
 import TD.System.UISystem;
+import TD.UI.Elements.PathEditorButtons.*;
 import TD.Util.Vec2;
 import processing.core.PApplet;
 
@@ -8,21 +9,26 @@ public class PathEditorUI extends Element
 {
     public PathEditorUI(UISystem ui)
     {
+        int s = ui.GM.width/9;
+        int w = s - ui.GM.width/100;
+        int si = (s-w)/2;
+
+        Buttons = new PathModeButton[]{
+                new MoveNode(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6)),
+                new CreateNode(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6)),
+                new RemoveNode(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6)),
+                new CreateConnection(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6)),
+                new RemoveConnection(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6)),
+                new TestPath(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6)),
+                new HidePath(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6)),
+        };
+
         for(int i = 0; i < Buttons.length; i++)
         {
             ui.Elements.add(Buttons[i]);
         }
     }
-
-    public PathModeButton[] Buttons = {
-            new PathModeButton(new Vec2(00,0),new Vec2(75,75),PathMode.MoveNode),
-            new PathModeButton(new Vec2(100,0),new Vec2(75,75),PathMode.CreateNode),
-            new PathModeButton(new Vec2(30,0),new Vec2(75,75),PathMode.RemoveNode),
-            new PathModeButton(new Vec2(45,0),new Vec2(75,75),PathMode.CreateConnection),
-            new PathModeButton(new Vec2(60,0),new Vec2(75,75),PathMode.RemoveConnection),
-            new PathModeButton(new Vec2(75,0),new Vec2(75,75),PathMode.TestPath),
-            new PathModeButton(new Vec2(90,0),new Vec2(75,75),PathMode.HidePath),
-    };
+    public PathModeButton[] Buttons;
 
     public enum PathMode
     {

@@ -4,7 +4,7 @@ import TD.Main.GameManager;
 import processing.core.PApplet;
 
 public abstract class System {
-    protected PApplet GM;
+    public PApplet GM;
 
     public System(PApplet gm) {
         GM = gm;

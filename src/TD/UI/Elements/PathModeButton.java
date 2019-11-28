@@ -24,12 +24,13 @@ public class PathModeButton extends Button
 
     @Override
     public boolean Select() {
-        return false;
+        Selected = true;
+        return true;
     }
 
     @Override
     public void Selected() {
-        Selected = true;
+
     }
 
     @Override
@@ -44,14 +45,19 @@ public class PathModeButton extends Button
 
     public void draw(PApplet PA, Theme T)
     {
+        PA.pushMatrix();
         if(Selected)
-            PA.fill(90,90,150);
+            PA.fill(50,50,250);
         else if(over)
-            PA.fill(95,95,100);
+            PA.fill(55,55,100);
         else
-            PA.fill(90,90,90);
+            PA.fill(50,50,50);
         PA.stroke(T.WindowBorder);
-        PA.rect(Pos.x,Pos.y,Pos.x+Scale.x,Pos.y+Scale.y);
+        PA.rect(Pos.x,Pos.y,Scale.x,Scale.y);
+        PA.fill(200,200,200);
+        PA.textSize(40);
+        PA.text(Mode.name(),Pos.x,Pos.y+Scale.y/2);
         over = false;
+        PA.popMatrix();
     }
 }

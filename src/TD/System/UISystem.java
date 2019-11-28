@@ -8,6 +8,7 @@ import TD.UI.Elements.Theme;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class UISystem extends System
 {
@@ -38,17 +39,23 @@ public class UISystem extends System
             if(E instanceof Selectable)
             {
                 Selectable S = (Selectable)E;
-                if(IsMouseOver(S))
-                {
-                    S.MouseOver();
-                    if(GM.mousePressed&&GM.mouseButton==PApplet.LEFT)
-                    {
-                        if(Sel != null)
-                            Sel.DeSelect();
-                        if(S.Select())
-                            Sel = S;
+                if(S!=Sel) {
+                    if (IsMouseOver(S)) {
+                        S.MouseOver();
+                        if (GM.mousePressed && GM.mouseButton == PApplet.LEFT) {
+                            if (Sel != S) {
+                                if (Sel != null)
+                                    Sel.DeSelect();
+                                if (S.Select())
+                                    Sel = S;
+                                else
+                                    Sel = null;
+                            }
+                        }
                     }
                 }
+                else
+                    S.Selected();
                 //GM only
                 //if(GameManager.GM.GetKey(S.ShortCut()))
                 //{
