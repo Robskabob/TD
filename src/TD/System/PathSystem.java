@@ -267,6 +267,7 @@ public class PathSystem extends System {
                 GM.fill(0);
                 GM.textSize(GM.Render.Zoom);
                 GM.text(N.number, (N.Pos.x - GM.P.Pos.x) * GM.Render.Zoom + GM.width / 2, (N.Pos.y - GM.P.Pos.y) * GM.Render.Zoom + GM.height / 2);
+                GM.fill(100,0,0);
                 GM.text(N.number2, (N.Pos.x - GM.P.Pos.x) * GM.Render.Zoom + GM.width / 2, (N.Pos.y - GM.P.Pos.y + 1) * GM.Render.Zoom + GM.height / 2);
             }
         }

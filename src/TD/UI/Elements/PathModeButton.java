@@ -1,5 +1,6 @@
 package TD.UI.Elements;
 
+import TD.System.PathSystem;
 import TD.Util.Vec2;
 
 import TD.UI.Elements.PathEditorUI.*;
@@ -7,15 +8,17 @@ import processing.core.PApplet;
 
 public class PathModeButton extends Button
 {
-    public PathModeButton(Vec2 pos, Vec2 scale, PathMode m)
+    protected PathSystem Pather;
+    public PathModeButton(Vec2 pos, Vec2 scale, PathMode m, PathSystem PathSys)
     {
+        Pather = PathSys;
         Pos = pos;
         Scale = scale;
         Mode = m;
     }
 
-    PathMode Mode;
-    boolean over;
+    public PathMode Mode;
+    public boolean over;
 
     @Override
     public char ShortCut() {
@@ -49,7 +52,7 @@ public class PathModeButton extends Button
         if(Selected)
             PA.fill(50,50,250);
         else if(over)
-            PA.fill(55,55,100);
+            PA.fill(155,55,100);
         else
             PA.fill(50,50,50);
         PA.stroke(T.WindowBorder);
