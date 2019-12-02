@@ -27,7 +27,7 @@ public class UISystem extends System
 
     @Override
     public void setup() {
-        Elements.add(new PathEditorUI(this));
+        Elements.add(new PathEditorUI(this,GameManager.GM.Pather));
     }
 
     @Override
