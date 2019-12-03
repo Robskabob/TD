@@ -20,7 +20,7 @@ public class Player extends Mob {
     @Override
     public void Update(PApplet GM)
     {
-        Rot = GM.atan2(GM.mouseY-(GM.height/2),GM.mouseX-(GM.width/2));
+        Dir = GM.atan2(GM.mouseY-(GM.height/2),GM.mouseX-(GM.width/2));
         if(GameManager.GM.GetKey('w'))
         {
             Vel.y -= Speed;
@@ -39,7 +39,7 @@ public class Player extends Mob {
         }
         if(GameManager.GM.mousePressed && GM.mouseButton == GameManager.LEFT)
         {
-            GameManager.GM.Entity.Add(new Projectile(Pos,Rot,.5f,Height+1));
+            GameManager.GM.Entity.Add(new Projectile(Pos, Dir,.5f,Height+1));
         }
     }
 

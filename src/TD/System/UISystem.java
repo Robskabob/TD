@@ -1,10 +1,7 @@
 package TD.System;
 
 import TD.Main.GameManager;
-import TD.UI.Elements.Element;
-import TD.UI.Elements.PathEditorUI;
-import TD.UI.Elements.Selectable;
-import TD.UI.Elements.Theme;
+import TD.UI.Elements.*;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -16,7 +13,8 @@ public class UISystem extends System
     public ArrayList<Element> Elements = new ArrayList<Element>();
     public Selectable Sel;
 
-    public UISystem(PApplet gm) {
+
+    public UISystem(GameManager gm) {
         super(gm);
     }
 
@@ -27,43 +25,53 @@ public class UISystem extends System
 
     @Override
     public void setup() {
-        Elements.add(new PathEditorUI(this));
+        Elements.add(new PathEditorUI(this,GameManager.GM.Pather));
     }
 
     @Override
     public void draw() {
         for(int i = 0; i < Elements.size(); i++)
         {
-            Element E = Elements.get(i);
-            E.draw(GM,T);
-            if(E instanceof Selectable)
-            {
-                Selectable S = (Selectable)E;
-                if(S!=Sel) {
-                    if (IsMouseOver(S)) {
-                        S.MouseOver();
-                        if (GM.mousePressed && GM.mouseButton == PApplet.LEFT) {
-                            if (Sel != S) {
-                                if (Sel != null)
-                                    Sel.DeSelect();
-                                if (S.Select())
-                                    Sel = S;
-                                else
-                                    Sel = null;
-                            }
+            UpdateElement(Elements.get(i));
+        }
+    }
+
+    private void UpdateElement(Element E) {
+        E.draw(GM,T);
+        if(E instanceof Selectable)
+        {
+            Selectable S = (Selectable)E;
+            if(S!=Sel) {
+                if (IsMouseOver(S)) {
+                    S.MouseOver();
+                    if (GM.mousePressed && GM.mouseButton == PApplet.LEFT) {
+                        if (Sel != S) {
+                            if (Sel != null)
+                                Sel.DeSelect();
+                            if (S.Select())
+                                Sel = S;
+                            else
+                                Sel = null;
                         }
                     }
                 }
-                else
-                    S.Selected();
-                //GM only
-                //if(GameManager.GM.GetKey(S.ShortCut()))
-                //{
-                //    if(Sel != null)
-                //        Sel.DeSelect();
-                //    if(S.Select())
-                //    Sel = S;
-                //}
+            }
+            else
+                S.Selected();
+            if(GameManager.GM.GetKey(S.ShortCut()))
+            {
+                if(Sel != null)
+                    Sel.DeSelect();
+                if(S.Select())
+                Sel = S;
+            }
+        }
+        if(E instanceof ElementGroup)
+        {
+            ElementGroup EG = (ElementGroup)E;
+            for(int i = 0; i < EG.GetLength(); i++)
+            {
+                UpdateElement(EG.GetElement(i));
             }
         }
     }

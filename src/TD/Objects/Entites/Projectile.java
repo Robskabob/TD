@@ -2,12 +2,13 @@ package TD.Objects.Entites;
 
 import TD.Main.GameManager;
 import TD.Objects.Mob;
+import TD.Objects.Unit;
 import TD.Util.Vec2;
 import processing.core.PApplet;
 
 public class Projectile extends Mob
 {
-    int life = 100;
+    int life = 50;
 
     public Projectile(Vec2 pos, float dir,float speed,int hight)
     {
@@ -38,6 +39,12 @@ public class Projectile extends Mob
         life--;
         if(life<0)
         {
+            Dead = true;
+        }
+        Unit U = GameManager.GM.Entity.GetUnitNearPoint(Pos,.7f);
+        if(U!=null)
+        {
+            U.HP-=10;
             Dead = true;
         }
     }

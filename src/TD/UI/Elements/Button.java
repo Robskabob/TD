@@ -5,6 +5,7 @@ import TD.Util.Vec2;
 public abstract class Button extends Element implements Selectable
 {
     public boolean Selected = false;
+    public boolean over = false;
 
     @Override
     public boolean Select() {

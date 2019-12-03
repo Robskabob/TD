@@ -17,8 +17,8 @@ public class MapSystem extends System {
     }
 
     public void setup() {
-        Width = 150;
-        Height = 150;
+        Width = 100;
+        Height = 100;
         Map = new int[Width][Height];
         for(int i = 0; i < Width; i++)
         {

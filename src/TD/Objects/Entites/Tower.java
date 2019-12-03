@@ -1,12 +1,17 @@
 package TD.Objects.Entites;
 
 import TD.Main.GameManager;
+import TD.Objects.Entites.Interfaces.Weapon;
 import TD.Objects.Entity;
+import TD.Objects.Unit;
 import TD.Util.Vec2;
 import processing.core.PApplet;
 
 public class Tower extends Entity
 {
+    Weapon W = new Weapon("gay",15,5,.8f,5);
+    float fr;
+
     public Tower(int x, int y)
     {
         Pos = new Vec2(x,y);
@@ -14,8 +19,13 @@ public class Tower extends Entity
     }
 
     @Override
-    public void Update(PApplet GM) {
-        Rot = GM.atan2(GameManager.GM.P.Pos.y-Pos.y-Radius/2,GameManager.GM.P.Pos.x-Pos.x-Radius/2);
+    public void Update(PApplet PA) {
+        GameManager GM = GameManager.GM;
+        Unit Target = GM.Entity.GetUnitNearPoint(Pos,W.Range);
+        if(Target != null) {
+            Dir = PA.atan2(Target.Pos.y - Pos.y, Target.Pos.x - Pos.x);
+            fr = W.Shoot(Pos, Dir,fr);
+        }
     }
 
     @Override

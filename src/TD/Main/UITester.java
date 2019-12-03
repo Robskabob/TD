@@ -9,7 +9,7 @@ public class UITester extends PApplet
         PApplet.main("TD.Main.UITester");
     }
 
-    public UISystem UI = new UISystem(this);
+    public UISystem UI = new UISystem(null);
 
     public void settings(){
         size(displayWidth,displayHeight);

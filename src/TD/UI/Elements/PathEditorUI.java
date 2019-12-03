@@ -6,7 +6,7 @@ import TD.UI.Elements.PathEditorButtons.*;
 import TD.Util.Vec2;
 import processing.core.PApplet;
 
-public class PathEditorUI extends Element
+public class PathEditorUI extends Element implements ElementGroup
 {
     protected PathSystem Pather;
     public PathEditorUI(UISystem ui,PathSystem PathSys)
@@ -25,21 +25,26 @@ public class PathEditorUI extends Element
                 new TestPath(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6),Pather),
                 new HidePath(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6),Pather),
         };
-
-        for(int i = 0; i < Buttons.length; i++)
-        {
-            ui.Elements.add(Buttons[i]);
-        }
     }
     public PathModeButton[] Buttons;
+
+    @Override
+    public Element GetElement(int i) {
+        return Buttons[i];
+    }
+
+    @Override
+    public int GetLength() {
+        return Buttons.length;
+    }
 
     public enum PathMode
     {
         MoveNode('m'),
         CreateNode('n'),
-        RemoveNode('r'),
-        CreateConnection('N'),
-        RemoveConnection('R'),
+        RemoveNode('N'),
+        CreateConnection('c'),
+        RemoveConnection('C'),
         TestPath('t'),
         HidePath('h');
 

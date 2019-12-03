@@ -5,6 +5,7 @@ import TD.Objects.Interfaces.Pather;
 import TD.Objects.Unit;
 import TD.Util.Vec2;
 import javafx.util.Pair;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -19,7 +20,7 @@ public class PathSystem extends System {
 
     public class Node// implements Comparable<Node>
     {
-        public Node(int x, int y)
+        public Node(float x, float y)
         {
             Pos = new Vec2(x,y);
         }
@@ -49,12 +50,12 @@ public class PathSystem extends System {
             path = nodes;
         }
 
-        public boolean isEnd(Pather p)
+        public boolean isEnd(@NotNull Pather p)
         {
             return p.GetPathIndex() > path.size()-1;
         }
 
-        public Vec2 getNext(Vec2 c,Pather p)
+        public Vec2 getNext(Vec2 c, @NotNull Pather p)
         {
             if(p.GetPathIndex()>path.size()-1)
             {
@@ -143,7 +144,7 @@ public class PathSystem extends System {
         return new Path(path);
     }
 
-    private Node Sel;
+    public Node Sel;
     public Node las;
 
     public Node getSel() {
@@ -154,6 +155,72 @@ public class PathSystem extends System {
         las = Sel;
         Sel = sel;
     }
+
+    public void CreateConnection(Node N1, @NotNull Node N2)
+    {
+        if (!N2.Connections.contains(N1)) {
+            N1.Connections.add(N2);
+            N2.Connections.add(N1);
+            return;
+        }
+    }
+    public void CreateNode(@NotNull Vec2 V)
+    {
+        Nodes.add(new Node(V.x, V.y));
+    }
+    public void CreateNode(float x, float y)
+    {
+        Nodes.add(new Node(x, y));
+    }
+    public void CreateNode()
+    {
+        CreateNode(GameManager.GM.MXF, GameManager.GM.MYF);
+    }
+    public void RemoveConnection(Node N1, @NotNull Node N2)
+    {
+        if (N2.Connections.contains(N1)) {
+            N1.Connections.remove(N2);
+            N2.Connections.remove(N1);
+            return;
+        }
+    }
+    public void RemoveNode(@NotNull Node N)
+    {
+        for(int i = 0; i < N.Connections.size(); i++)
+        {
+            N.Connections.get(i).Connections.remove(N);
+        }
+        Nodes.remove(N);
+    }
+    public void HidePath(){draw = !draw;}
+    public void TestPath(){
+        if(GM.frameCount%15==0)
+        {
+            if(las!=null&&Sel!=null&&Sel!=las)
+                GameManager.GM.Entity.Add(new Unit(GetPath(las,Sel)));
+        }
+    }
+
+    public Boolean IsNearNode(Node N,Vec2 V){return true;}
+    public Node GetNodeNearMouse(float MaxDist)
+    {
+        MaxDist *= MaxDist;
+        Node N = null;
+
+        for(int i = 0; i < Nodes.size(); i++)
+        {
+            Node I = Nodes.get(i);
+            float f = I.Pos.sub(new Vec2(GameManager.GM.MX, GameManager.GM.MY)).sqMag();
+            if (f < MaxDist)
+            {
+                MaxDist = f;
+                N = I;
+            }
+        }
+
+        return N;
+    }
+
 
     public void EditPath()
     {
@@ -235,7 +302,7 @@ public class PathSystem extends System {
         if(GM.GetKey('u')&&GM.frameCount%5==0)
         {
             if(las!=null&&Sel!=null)
-                GM.Entity.Entities.add(new Unit(GetPath(las,Sel)));
+                GM.Entity.Add(new Unit(GetPath(las,Sel)));
         }
 
         if(GM.GetKey('p')&&GM.frameCount%10==0)
@@ -245,7 +312,7 @@ public class PathSystem extends System {
 
         if(draw)
         {
-            EditPath();
+            //EditPath();
             for(int i = 0; i < Nodes.size(); i++)
             {
                 Node N = Nodes.get(i);

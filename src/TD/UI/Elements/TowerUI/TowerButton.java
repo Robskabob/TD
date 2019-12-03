@@ -1,32 +1,23 @@
-package TD.UI.Elements;
+package TD.UI.Elements.TowerUI;
 
-import TD.System.PathSystem;
-import TD.Util.Vec2;
-
-import TD.UI.Elements.PathEditorUI.*;
+import TD.Objects.Entites.Interfaces.Weapon;
+import TD.UI.Elements.Button;
+import TD.UI.Elements.Theme;
 import processing.core.PApplet;
 
-public class PathModeButton extends Button
-{
-    protected PathSystem Pather;
-    public PathModeButton(Vec2 pos, Vec2 scale, PathMode m, PathSystem PathSys)
-    {
-        Pather = PathSys;
-        Pos = pos;
-        Scale = scale;
-        Mode = m;
-    }
-
-    public PathMode Mode;
+public class TowerButton extends Button {
+    protected TowerUI TUI;
+    public Weapon TW;
 
     @Override
     public char ShortCut() {
-        return Mode.ShortCut;
+        return 0;
     }
 
     @Override
     public boolean Select() {
         Selected = true;
+        TUI.Sel = TW;
         return true;
     }
 
@@ -57,7 +48,7 @@ public class PathModeButton extends Button
         PA.rect(Pos.x,Pos.y,Pos.x+Scale.x,Pos.y+Scale.y);
         PA.fill(200,200,200);
         PA.textSize(40);
-        PA.text(Mode.name(),Pos.x,Pos.y+Scale.y/2);
+        PA.text(TW.Name,Pos.x,Pos.y+Scale.y/2);
         over = false;
     }
 }

@@ -9,6 +9,7 @@ public class Unit extends Mob implements Pather
 {
     private int pathIndex;
     public PathSystem.Path path;
+    public float HP = 100;
 
     public Unit(PathSystem.Path Path)
     {
@@ -18,7 +19,7 @@ public class Unit extends Mob implements Pather
         Radius=.3f;
         Height = 1;
         Team = 5;
-        Speed = .1f;
+        Speed = .02f;
         Friction = .2f;
         pathIndex = 0;
     }
@@ -26,7 +27,7 @@ public class Unit extends Mob implements Pather
     @Override
     public void Update(PApplet GM) {
         Vel.Add(path.getNext(Pos,this).sub(Pos).normilize().mult(Speed));
-        if(path.isEnd(this))
+        if(path.isEnd(this)||0 > HP)
             Dead = true;
     }
 

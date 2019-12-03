@@ -6,7 +6,7 @@ import processing.core.PApplet;
 public abstract class Entity
 {
     public Vec2 Pos;
-    public float Rot;
+    public float Dir;
     public float Radius = 1;
     public int Height;
     public int Team;

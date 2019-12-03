@@ -17,6 +17,7 @@ public class GameManager extends PApplet
     public EntitySystem Entity = new EntitySystem(this);
     public PathSystem Pather = new PathSystem(this);
     public KeySystem Key = new KeySystem(this);
+    public UISystem UI = new UISystem(this);
     //End Systems
 
     public Player P;
@@ -70,11 +71,11 @@ public class GameManager extends PApplet
 
     public void settings(){
         GM=this;
-        size(displayWidth,displayHeight);
+        fullScreen();
     }
 
     public void setup(){
-        P = new Player(12.5f,12.5f,.4f,1,5);
+        P = new Player(50,50,.4f,1,5);
         Map.BlockMap.add(new Block(this, 0,10,100,0));
         Map.BlockMap.add(new Block(this, 0,30,110,0));
         Map.BlockMap.add(new Block(this, 10,110,20,1));
@@ -83,17 +84,18 @@ public class GameManager extends PApplet
         Map.BlockMap.add(new Block(this, 211,211,211,2));
         Map.BlockMap.add(new Block(this, 120,120,120,4));
         Map.BlockMap.add(new Block(this, 222,222,222,5));
-        frameRate(30);
+        frameRate(60);
         //BlockMap = new Block[]{new Block(0,10,100,0),new Block(0,30,110,0),new Block(10,110,20,1),new Block(80,110,60,1),new Block(120,120,120,3),new Block(200,200,225,5),new Block(25,25,200,5),new Block(200,25,25,5),new Block(25,200,25,5),new Block(200,200,25,5)};;
         Map.setup();
         Render.setup();
         Entity.setup();
+        UI.setup();
         Key.setup();
         Render.Focus = P;
         Entity.Add(P);
-        Entity.Add(new Tower(10,10));
-        Entity.Add(new Tower(10,11));
-        Entity.Add(new Tower(10,12));
+        Entity.Add(new Tower(30,20));
+        Entity.Add(new Tower(30,50));
+        Entity.Add(new Tower(30,80));
     }
 
     public void draw(){
@@ -101,13 +103,14 @@ public class GameManager extends PApplet
         Entity.draw();
         Render.draw();
         Pather.draw();
-
+        UI.draw();
         textSize(32);
         fill(0, 0, 0);
-        text("Zoom:"+GM.GetZoom(), 10, 30);
-        text("MouseX:"+GM.MX, 10, 60);
-        text("MouseY:"+GM.MY, 10, 90);
-        text("MouseYf:"+GM.MYF, 10, 120);
+        text("Zoom:"+GetZoom(), 10, 30);
+        text("MouseX:"+MX, 10, 60);
+        text("MouseY:"+MY, 10, 90);
+        text("MouseYf:"+MYF, 10, 120);
+        text("FrameRate:"+frameRate, 10, 150);
 
         if(mousePressed)
         {
@@ -155,19 +158,22 @@ public class GameManager extends PApplet
     public int MX;
     public int MY;
     public float MYF;
+    public float MXF;
 
     public void mouseMoved()
     {
-        MX=Math.round(mouseX/Render.Zoom+Render.FocusX());
-        MY=Math.round(mouseY/Render.Zoom+Render.FocusY());
-        MYF=mouseY/(float)Render.Zoom+Render.FocusY();
+        MXF=mouseX/Render.Zoom+Render.FocusX();
+        MYF=mouseY/Render.Zoom+Render.FocusY();
+        MX=Math.round(MXF);
+        MY=Math.round(MYF);
     }
 
     public void mouseDragged()
     {
-        MX=Math.round(mouseX/(float)Render.Zoom+Render.FocusX());
-        MY=Math.round(mouseY/(float)Render.Zoom+Render.FocusY());
+        MXF=mouseX/Render.Zoom+Render.FocusX();
         MYF=mouseY/Render.Zoom+Render.FocusY();
+        MX=Math.round(MXF);
+        MY=Math.round(MYF);
         if(MX<Map.Width&&MY<Map.Height&&MX>=0&&MY >=0)
         {
             if(mouseButton == LEFT)

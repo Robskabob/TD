@@ -35,19 +35,20 @@ public class RenderSystem  extends System
         GM.strokeCap(4);
         GM.fill(50);
         GM.rect(0,0,GM.width,GM.height);
+        GM.rectMode(1);
+        GM.strokeWeight(Zoom/10);
         Blocks(FocusX(),FocusY());
+        GM.strokeWeight(Zoom/3);
         Shading(FocusX(),FocusY());
-        for(int i = 0; i < GameManager.GM.Entity.Entities.size(); i++)
+        for(int i = 0; i < GameManager.GM.Entity.Size(); i++)
         {
-            Entity E = GameManager.GM.Entity.Entities.get(i);
-            E.draw(GM,(E.Pos.x-GameManager.GM.P.Pos.x)*Zoom+GM.width/2,(E.Pos.y-GameManager.GM.P.Pos.y)*Zoom+GM.height/2,E.Rot,Zoom);
+            Entity E = GameManager.GM.Entity.Get(i);
+            E.draw(GM,(E.Pos.x-GameManager.GM.P.Pos.x)*Zoom+GM.width/2,(E.Pos.y-GameManager.GM.P.Pos.y)*Zoom+GM.height/2,E.Dir,Zoom);
         }
     }
 
     private void Blocks(float X,float Y)
     {
-        GM.rectMode(1);
-        GM.strokeWeight(Zoom/10);
         //GM.noStroke();
         for(int x = 0; x <GameManager.GM.Map.Width; x++)
         {
@@ -64,7 +65,6 @@ public class RenderSystem  extends System
     private void ShadeLine(Block O, Block I, float x, float y, boolean X)
     {
         int Ic=I.Color;
-        GM.strokeWeight(Zoom/3);
         if(O.Depth==I.Depth)
         {
             GM.stroke(GameManager.GM.colorAverage(O.Color,Ic));
