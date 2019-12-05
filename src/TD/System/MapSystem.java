@@ -42,6 +42,5 @@ public class MapSystem extends System {
         if (X >= 0 && X <= Width && Y >= 0 && Y <= Height) {
             Map[X][Y] = ID;
         }
-
     }
 }

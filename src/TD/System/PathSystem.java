@@ -1,10 +1,12 @@
 package TD.System;
 
 import TD.Main.GameManager;
+import TD.Objects.Block;
 import TD.Objects.Interfaces.Pather;
 import TD.Objects.Unit;
 import TD.Util.Vec2;
 import javafx.util.Pair;
+import sun.net.httpserver.HttpServerImpl;
 
 import java.util.*;
 
@@ -17,17 +19,45 @@ public class PathSystem extends System {
 
     public boolean draw = true;
 
+    public enum Terrain
+    {
+        Land,
+        Water;
+
+        public static boolean GetBit(byte mask,Terrain T) {
+            return ((T.ordinal() >> mask)&1)==1;
+        }
+
+        public static byte SetBit(byte mask,Terrain T,boolean v) {
+            return (byte)(v ? mask | (1 << T.ordinal()) : mask & ~(1 << T.ordinal()));
+        }
+    }
+
     public class Node// implements Comparable<Node>
     {
-        public Node(float x, float y)
-        {
+        public Node(float x, float y) {
             Pos = new Vec2(x,y);
+            PlaceNode();
         }
         public Vec2 Pos;
         public ArrayList<Node> Connections = new ArrayList<>();
 
-        public float number;
-        public float number2;
+        public float number;//testing
+        public float number2;//testing
+
+        public boolean Accessible(Node N,Unit U) {
+            return (U.Step < Math.abs(N.Height - Height))&&Terrain.GetBit(U.Terrain,N.T);
+        }
+
+        public Terrain T = Terrain.Land;
+        public int Height = 2;
+
+        public void PlaceNode() {
+            GameManager GM = GameManager.GM;
+            Block B = GM.Map.BlockMap.get(GM.Map.Get((int)Pos.x,(int)Pos.y));
+            Height = B.Depth;
+            T = B.T;
+        }
 
         //@Override
         //public int compareTo(Node o) {
@@ -73,7 +103,7 @@ public class PathSystem extends System {
         }
     }
 
-    public Path GetPath(Node Start,Node End)
+    public Path GetPath(Node Start,Node End,Unit U)
     {
         HashMap<Node,Float> pathed = new HashMap<>();
         //ArrayList<Node> Queue = new ArrayList<Node>();
@@ -86,7 +116,7 @@ public class PathSystem extends System {
         {
             for (int i = 0; i < N.Connections.size(); i++) {
                 Node O = N.Connections.get(i);
-                if (pathed.containsKey(O)) {
+                if (pathed.containsKey(O) || N.Accessible(O,U)) {
                     continue;
                 }
                 O.number2 = O.Pos.Dist(End.Pos)+pathed.get(N);
@@ -196,7 +226,7 @@ public class PathSystem extends System {
         if(GM.frameCount%15==0)
         {
             if(las!=null&&Sel!=null&&Sel!=las)
-                GameManager.GM.Entity.Add(new Unit(GetPath(las,Sel)));
+                GameManager.GM.Entity.Add(new Unit(las,Sel));
         }
     }
 
@@ -301,7 +331,7 @@ public class PathSystem extends System {
         if(GM.GetKey('u')&&GM.frameCount%5==0)
         {
             if(las!=null&&Sel!=null)
-                GM.Entity.Add(new Unit(GetPath(las,Sel)));
+                GM.Entity.Add(new Unit(las,Sel));
         }
 
         if(GM.GetKey('p')&&GM.frameCount%10==0)

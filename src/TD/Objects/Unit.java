@@ -1,5 +1,6 @@
 package TD.Objects;
 
+import TD.Main.GameManager;
 import TD.Objects.Interfaces.Pather;
 import TD.System.PathSystem;
 import TD.Util.Vec2;
@@ -7,13 +8,14 @@ import processing.core.PApplet;
 
 public class Unit extends Mob implements Pather
 {
+    public int Step;
+    public byte Terrain;
     private int pathIndex;
     public PathSystem.Path path;
     public float HP = 100;
 
     public Unit(PathSystem.Path Path)
     {
-        path = Path;
         Pos = new Vec2(path.path.get(0).Pos);
         Vel = new Vec2(0,0);
         Radius=.3f;
@@ -22,6 +24,25 @@ public class Unit extends Mob implements Pather
         Speed = .02f;
         Friction = .2f;
         pathIndex = 0;
+        Terrain = PathSystem.Terrain.SetBit(Terrain,PathSystem.Terrain.Land,true);
+        path = Path;
+    }
+
+    public Unit(PathSystem.Node las, PathSystem.Node sel) {
+        Pos = new Vec2(path.path.get(0).Pos);
+        Vel = new Vec2(0,0);
+        Radius=.3f;
+        Height = 1;
+        Team = 5;
+        Speed = .02f;
+        Friction = .2f;
+        pathIndex = 0;
+        Terrain = PathSystem.Terrain.SetBit(Terrain,PathSystem.Terrain.Land,true);
+        if(Math.random()<.5)
+        {
+            Terrain = PathSystem.Terrain.SetBit(Terrain,PathSystem.Terrain.Water,true);
+        }
+        path = GameManager.GM.Pather.GetPath(las,sel,this);
     }
 
     @Override

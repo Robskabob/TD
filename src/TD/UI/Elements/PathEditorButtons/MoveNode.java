@@ -25,8 +25,10 @@ public class MoveNode extends PathModeButton {
                         Pather.Sel = N;
                     }
                 }
-                else
+                else{
                     Pather.Sel.Pos.Set(GameManager.GM.MXF, GameManager.GM.MYF);
+                    Pather.Sel.PlaceNode();
+                }
             }
             else if(Pather.Sel != null)
             {

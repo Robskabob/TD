@@ -76,14 +76,14 @@ public class GameManager extends PApplet
 
     public void setup(){
         P = new Player(50,50,.4f,1,5);
-        Map.BlockMap.add(new Block(this, 0,10,100,0));
-        Map.BlockMap.add(new Block(this, 0,30,110,0));
-        Map.BlockMap.add(new Block(this, 10,110,20,1));
-        Map.BlockMap.add(new Block(this, 80,110,60,1));
-        Map.BlockMap.add(new Block(this, 120,120,120,2));
-        Map.BlockMap.add(new Block(this, 211,211,211,2));
-        Map.BlockMap.add(new Block(this, 120,120,120,4));
-        Map.BlockMap.add(new Block(this, 222,222,222,5));
+        Map.BlockMap.add(new Block(this, 0,10,100,0, PathSystem.Terrain.Water));
+        Map.BlockMap.add(new Block(this, 0,30,110,0, PathSystem.Terrain.Water));
+        Map.BlockMap.add(new Block(this, 10,110,20,1, PathSystem.Terrain.Land));
+        Map.BlockMap.add(new Block(this, 80,110,60,1, PathSystem.Terrain.Land));
+        Map.BlockMap.add(new Block(this, 120,120,120,2, PathSystem.Terrain.Land));
+        Map.BlockMap.add(new Block(this, 211,211,211,2, PathSystem.Terrain.Land));
+        Map.BlockMap.add(new Block(this, 120,120,120,4, PathSystem.Terrain.Land));
+        Map.BlockMap.add(new Block(this, 222,222,222,5, PathSystem.Terrain.Land));
         frameRate(60);
         //BlockMap = new Block[]{new Block(0,10,100,0),new Block(0,30,110,0),new Block(10,110,20,1),new Block(80,110,60,1),new Block(120,120,120,3),new Block(200,200,225,5),new Block(25,25,200,5),new Block(200,25,25,5),new Block(25,200,25,5),new Block(200,200,25,5)};;
         Map.setup();
@@ -174,6 +174,8 @@ public class GameManager extends PApplet
         MYF=mouseY/Render.Zoom+Render.FocusY();
         MX=Math.round(MXF);
         MY=Math.round(MYF);
+        if(!(GetZoom()==10))
+            return;
         if(MX<Map.Width&&MY<Map.Height&&MX>=0&&MY >=0)
         {
             if(mouseButton == LEFT)
