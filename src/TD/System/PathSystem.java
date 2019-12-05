@@ -5,7 +5,6 @@ import TD.Objects.Interfaces.Pather;
 import TD.Objects.Unit;
 import TD.Util.Vec2;
 import javafx.util.Pair;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -50,12 +49,12 @@ public class PathSystem extends System {
             path = nodes;
         }
 
-        public boolean isEnd(@NotNull Pather p)
+        public boolean isEnd(Pather p)
         {
             return p.GetPathIndex() > path.size()-1;
         }
 
-        public Vec2 getNext(Vec2 c, @NotNull Pather p)
+        public Vec2 getNext(Vec2 c, Pather p)
         {
             if(p.GetPathIndex()>path.size()-1)
             {
@@ -156,7 +155,7 @@ public class PathSystem extends System {
         Sel = sel;
     }
 
-    public void CreateConnection(Node N1, @NotNull Node N2)
+    public void CreateConnection(Node N1, Node N2)
     {
         if (!N2.Connections.contains(N1)) {
             N1.Connections.add(N2);
@@ -164,7 +163,7 @@ public class PathSystem extends System {
             return;
         }
     }
-    public void CreateNode(@NotNull Vec2 V)
+    public void CreateNode(Vec2 V)
     {
         Nodes.add(new Node(V.x, V.y));
     }
@@ -176,7 +175,7 @@ public class PathSystem extends System {
     {
         CreateNode(GameManager.GM.MXF, GameManager.GM.MYF);
     }
-    public void RemoveConnection(Node N1, @NotNull Node N2)
+    public void RemoveConnection(Node N1, Node N2)
     {
         if (N2.Connections.contains(N1)) {
             N1.Connections.remove(N2);
@@ -184,7 +183,7 @@ public class PathSystem extends System {
             return;
         }
     }
-    public void RemoveNode(@NotNull Node N)
+    public void RemoveNode(Node N)
     {
         for(int i = 0; i < N.Connections.size(); i++)
         {

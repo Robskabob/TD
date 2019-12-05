@@ -26,8 +26,7 @@ public class RenderSystem  extends System
 
     public void setup()
     {
-        Zoom = 10;
-
+        Zoom = 20;
     }
 
     public void draw()
