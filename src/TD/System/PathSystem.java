@@ -25,7 +25,9 @@ public class PathSystem extends System {
         Water;
 
         public static boolean GetBit(byte mask,Terrain T) {
-            return ((T.ordinal() >> mask)&1)==1;
+            int a = ((mask >> T.ordinal())&1);
+            boolean b = a==1;
+            return b;
         }
 
         public static byte SetBit(byte mask,Terrain T,boolean v) {
@@ -46,7 +48,7 @@ public class PathSystem extends System {
         public float number2;//testing
 
         public boolean Accessible(Node N,Unit U) {
-            return (U.Step < Math.abs(N.Height - Height))&&Terrain.GetBit(U.Terrain,N.T);
+            return (U.Step >= Math.abs(N.Height - Height))&&Terrain.GetBit(U.Terrain,N.T);
         }
 
         public Terrain T = Terrain.Land;
@@ -116,7 +118,7 @@ public class PathSystem extends System {
         {
             for (int i = 0; i < N.Connections.size(); i++) {
                 Node O = N.Connections.get(i);
-                if (pathed.containsKey(O) || N.Accessible(O,U)) {
+                if (pathed.containsKey(O) || !N.Accessible(O,U)) {
                     continue;
                 }
                 O.number2 = O.Pos.Dist(End.Pos)+pathed.get(N);
@@ -124,7 +126,8 @@ public class PathSystem extends System {
             }
             if(N!=null) {
                 L = N;
-                Pair<Node,Float> p = Queue.poll().getKey();
+                Pair<Pair<Node,Float>,Float> p1 = Queue.poll();
+                Pair<Node,Float> p = p1.getKey();
                 N = p.getKey();
                 N.number = N.Pos.Dist(L.Pos) + p.getValue();//testing only
                 pathed.put(N, N.Pos.Dist(L.Pos) + p.getValue());
@@ -349,8 +352,12 @@ public class PathSystem extends System {
                     GM.fill(100, 100, 200);
                 } else if (las == N) {
                     GM.fill(100, 200, 100);
+                } else if (N.T == Terrain.Land) {
+                    GM.fill(50, 250, 50);
+                } else if (N.T == Terrain.Water) {
+                    GM.fill(10, 10, 250);
                 } else {
-                    GM.fill(150, 100, 100);
+                    GM.fill(100, 100, 100);
                 }
                 GM.ellipse((N.Pos.x - GM.P.Pos.x) * GM.Render.Zoom + GM.width / 2, (N.Pos.y - GM.P.Pos.y) * GM.Render.Zoom + GM.height / 2, GM.Render.Zoom / 3, GM.Render.Zoom / 3);
                 for (int j = 0; j < N.Connections.size(); j++) {
