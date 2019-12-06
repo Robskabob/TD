@@ -8,16 +8,31 @@ import processing.core.PApplet;
 
 public class Unit extends Mob implements Pather
 {
+    public String Name;
     public int Step = 1;
     public byte Terrain;
-    private int pathIndex;
+    private int pathIndex = 0;
     public PathSystem.Path path;
     public float HP = 100;
     public boolean Water;
 
+    public Unit(){}
+
+    public Unit(Unit U, PathSystem.Path p){
+        path = p;
+        Pos = new Vec2(path.path.get(0).Pos);
+        Vel = new Vec2(0,0);
+        Radius = U.Radius;
+        Height = U.Height;
+        Team = U.Team;
+        Speed = U.Speed;
+        Friction = U.Friction;
+        HP = U.HP;
+        pathIndex = 0;
+    }
+
     public Unit(PathSystem.Path Path)
     {
-        Terrain = PathSystem.Terrain.SetBit(Terrain,PathSystem.Terrain.Land,true);
         path = Path;
         Pos = new Vec2(path.path.get(0).Pos);
         Vel = new Vec2(0,0);
@@ -30,14 +45,6 @@ public class Unit extends Mob implements Pather
     }
 
     public Unit(PathSystem.Node las, PathSystem.Node sel) {
-        Terrain = PathSystem.Terrain.SetBit(Terrain,PathSystem.Terrain.Land,true);
-        if(Math.random()<.5) {
-            Terrain = PathSystem.Terrain.SetBit(Terrain,PathSystem.Terrain.Water,true);
-            Water = true;
-        }
-        else {
-            Terrain = PathSystem.Terrain.SetBit(Terrain,PathSystem.Terrain.Water,false);
-        }
         path = GameManager.GM.Pather.GetPath(las,sel,this);
         Pos = new Vec2(path.path.get(0).Pos);
         Vel = new Vec2(0,0);

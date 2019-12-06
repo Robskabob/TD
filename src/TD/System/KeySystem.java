@@ -30,13 +30,11 @@ public class KeySystem extends System {
         if (Last != GM.key) {
             Keys.put(GM.key, true);
         }
-
     }
 
     public void KeyUp() {
         if (Last != GM.key) {
             Keys.put(GM.key, false);
         }
-
     }
 }

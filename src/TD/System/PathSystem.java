@@ -2,6 +2,9 @@ package TD.System;
 
 import TD.Main.GameManager;
 import TD.Objects.Block;
+import TD.Objects.Entites.Units.Runner;
+import TD.Objects.Entites.Units.Walker;
+import TD.Objects.Entites.Units.WaterMan;
 import TD.Objects.Interfaces.Pather;
 import TD.Objects.Unit;
 import TD.Util.Vec2;
@@ -16,6 +19,8 @@ public class PathSystem extends System {
     }
 
     public List<Node> Nodes = new ArrayList<Node>();
+    public List<Node> Starts = new ArrayList<Node>();
+    public List<Node> Ends = new ArrayList<Node>();
 
     public boolean draw = true;
 
@@ -127,6 +132,10 @@ public class PathSystem extends System {
             if(N!=null) {
                 L = N;
                 Pair<Pair<Node,Float>,Float> p1 = Queue.poll();
+                if(p1==null) {
+                    N = null;
+                    continue;
+                }
                 Pair<Node,Float> p = p1.getKey();
                 N = p.getKey();
                 N.number = N.Pos.Dist(L.Pos) + p.getValue();//testing only
@@ -228,8 +237,17 @@ public class PathSystem extends System {
     public void TestPath(){
         if(GM.frameCount%15==0)
         {
-            if(las!=null&&Sel!=null&&Sel!=las)
-                GameManager.GM.Entity.Add(new Unit(las,Sel));
+            if(las!=null&&Sel!=null&&Sel!=las) {
+                double r = Math.random();
+                if (r < .3) {
+                    GameManager.GM.Entity.Add(new Runner(las, Sel));
+                } else if(r<.6) {
+                    GameManager.GM.Entity.Add(new Walker(las, Sel));
+                }
+                else {
+                    GameManager.GM.Entity.Add(new WaterMan(las, Sel));
+                }
+            }
         }
     }
 
