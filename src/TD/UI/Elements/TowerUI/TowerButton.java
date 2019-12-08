@@ -6,6 +6,10 @@ import TD.UI.Elements.Theme;
 import processing.core.PApplet;
 
 public class TowerButton extends Button {
+    public TowerButton() {
+
+    }
+
     protected TowerUI TUI;
     public Weapon TW;
 

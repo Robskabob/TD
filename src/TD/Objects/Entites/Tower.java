@@ -9,7 +9,7 @@ import processing.core.PApplet;
 
 public class Tower extends Entity
 {
-    Weapon W = new Weapon("gay",15,5,.8f,5);
+    Weapon W = new Weapon("gay",15,5,.5f,5);
     float fr;
 
     public Tower(int x, int y)

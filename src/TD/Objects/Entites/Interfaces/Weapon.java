@@ -1,6 +1,7 @@
 package TD.Objects.Entites.Interfaces;
 
 import TD.Main.GameManager;
+import TD.Objects.Entites.Missle;
 import TD.Objects.Entites.Projectile;
 import TD.Util.Vec2;
 
@@ -25,7 +26,7 @@ public class Weapon
         GameManager GM = GameManager.GM;
         if(fr>1) {
             fr-=1;
-            GM.Entity.Add(new Projectile(Pos, Dir+GM.random(-.1f,.1f), Speed, 3));
+            GM.Entity.Add(new Missle(Pos, Dir+GM.random(-.1f,.1f), Speed, 3));
         }
         else {
             fr+=FireRate/GM.frameRate;
