@@ -4,7 +4,7 @@ import TD.Main.GameManager;
 import TD.Objects.Block;
 import TD.Objects.Entity;
 
-public class RenderSystem  extends System
+public class RenderSystem extends System
 {
     public RenderSystem(GameManager gm) {
         super(gm);
