@@ -38,7 +38,7 @@ public class WaveSystem extends System {
                 {
                     if((Time - G.TimeOffset)%G.Spacing==0)
                     {
-                        GM.Entity.Add(new Unit(G.U));
+                        GM.Entity.Add(new Unit(G.U,G.U.path));
                         G.Count--;
                     }
                 }

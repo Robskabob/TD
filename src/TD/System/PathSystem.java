@@ -119,8 +119,15 @@ public class PathSystem extends System {
         Node N = Start;
 
         pathed.put(Start, 0f);
-        while(N!=End)
+        while(N!=End)//loop until reached end
         {
+            if(N == null) {//check if node is null
+                if(Queue.isEmpty())//if queue empty break if not grab next element
+                {
+                    break;
+                }
+                N = Queue.poll().getKey().getKey();
+            }
             for (int i = 0; i < N.Connections.size(); i++) {
                 Node O = N.Connections.get(i);
                 if (pathed.containsKey(O) || !N.Accessible(O,U)) {
@@ -129,26 +136,16 @@ public class PathSystem extends System {
                 O.number2 = O.Pos.Dist(End.Pos)+pathed.get(N);
                 Queue.add(new Pair<>(new Pair<>(O,pathed.get(N)),O.Pos.Dist(End.Pos)+pathed.get(N)));
             }
-            if(N!=null) {
-                L = N;
-                Pair<Pair<Node,Float>,Float> p1 = Queue.poll();
-                if(p1==null) {
-                    N = null;
-                    continue;
-                }
-                Pair<Node,Float> p = p1.getKey();
-                N = p.getKey();
-                N.number = N.Pos.Dist(L.Pos) + p.getValue();//testing only
-                pathed.put(N, N.Pos.Dist(L.Pos) + p.getValue());
+            L = N;
+            Pair<Pair<Node,Float>,Float> p1 = Queue.poll();
+            if(p1==null) {
+                N = null;
+                continue;
             }
-            else
-            {
-                if(Queue.isEmpty())
-                {
-                    break;
-                }
-                N = Queue.poll().getKey().getKey();
-            }
+            Pair<Node,Float> p = p1.getKey();
+            N = p.getKey();
+            N.number = N.Pos.Dist(L.Pos) + p.getValue();//testing only
+            pathed.put(N, N.Pos.Dist(L.Pos) + p.getValue());
         }
 
         if(N==null)
@@ -157,7 +154,7 @@ public class PathSystem extends System {
         }
 
         ArrayList<Node> path = new ArrayList<Node>();
-        while (N != Start)
+        while (N != Start)//loop until Start reached
         {
             float Min = Float.MAX_VALUE;
             Node m = null;

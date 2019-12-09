@@ -56,8 +56,8 @@ public class PathModeButton extends Button
         PA.stroke(T.WindowBorder);
         PA.rect(Pos.x,Pos.y,Pos.x+Scale.x,Pos.y+Scale.y);
         PA.fill(200,200,200);
-        PA.textSize(40);
-        PA.text(Mode.name(),Pos.x,Pos.y+Scale.y/2);
+        PA.textSize(Scale.y);
+        PA.text(Mode.name(),Pos.x,Pos.y+Scale.y/1.25f);
         over = false;
     }
 }

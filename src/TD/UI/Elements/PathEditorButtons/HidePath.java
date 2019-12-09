@@ -26,7 +26,6 @@ public class HidePath extends PathModeButton {
 
     @Override public void draw(PApplet PA, Theme T)
     {
-        PA.pushMatrix();
         if(Selected)
             PA.fill(50,50,250);
         else if(over)
@@ -36,12 +35,11 @@ public class HidePath extends PathModeButton {
         PA.stroke(T.WindowBorder);
         PA.rect(Pos.x,Pos.y,Pos.x+Scale.x,Pos.y+Scale.y);
         PA.fill(200,200,200);
-        PA.textSize(40);
-        PA.text(Mode.name(),Pos.x,Pos.y+Scale.y/2);
+        PA.textSize(Scale.y);
+        PA.text(Mode.name(),Pos.x,Pos.y+Scale.y/1.25f);
         over = false;
         if(s==a)
             b = true;
         a=s;
-        PA.popMatrix();
     }
 }

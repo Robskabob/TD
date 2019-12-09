@@ -45,7 +45,6 @@ public class TestPath extends PathModeButton {
                 Pather.TestPath();
             }
         }
-        PA.pushMatrix();
         if(Selected)
             PA.fill(50,50,250);
         else if(over)
@@ -55,9 +54,8 @@ public class TestPath extends PathModeButton {
         PA.stroke(T.WindowBorder);
         PA.rect(Pos.x,Pos.y,Pos.x+Scale.x,Pos.y+Scale.y);
         PA.fill(200,200,200);
-        PA.textSize(40);
-        PA.text(Mode.name(),Pos.x,Pos.y+Scale.y/2);
-        PA.popMatrix();
+        PA.textSize(Scale.y);
+        PA.text(Mode.name(),Pos.x,Pos.y+Scale.y/1.25f);
         over = false;
         if(s==a)
             b = true;

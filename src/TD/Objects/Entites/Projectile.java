@@ -10,12 +10,19 @@ public class Projectile extends Mob
 {
     int life = 50;
 
-    public Projectile(Vec2 pos, float dir,float speed,int hight)
+    public Projectile New(Vec2 pos, float dir,float speed,int height)
+    {
+        return new Projectile(pos, dir, speed, height);
+    }
+
+    public Projectile(){}
+
+    public Projectile(Vec2 pos, float dir,float speed,int height)
     {
         Pos = new Vec2(pos);
         Vel = new Vec2(GameManager.cos(dir)*speed,GameManager.sin(dir)*speed);
         Radius = .1f;
-        Height = hight;
+        Height = height;
         Team = 0;
         Speed = .1f;
         Friction=.01f;

@@ -3,11 +3,18 @@ package TD.UI.Elements.TowerUI;
 import TD.Objects.Entites.Interfaces.Weapon;
 import TD.UI.Elements.Button;
 import TD.UI.Elements.Theme;
+import TD.Util.Vec2;
 import processing.core.PApplet;
 
-public class TowerButton extends Button {
-    public TowerButton() {
+import java.util.Scanner;
 
+public class TowerButton extends Button {
+    public TowerButton(Vec2 pos, Vec2 scale, Weapon tw, TowerUI tui)
+    {
+        Pos = pos;
+        Scale = scale;
+        TW = tw;
+        TUI = tui;
     }
 
     protected TowerUI TUI;
@@ -51,8 +58,12 @@ public class TowerButton extends Button {
         PA.stroke(T.WindowBorder);
         PA.rect(Pos.x,Pos.y,Pos.x+Scale.x,Pos.y+Scale.y);
         PA.fill(200,200,200);
-        PA.textSize(40);
-        PA.text(TW.Name,Pos.x,Pos.y+Scale.y/2);
+        PA.textSize(Scale.x);
+        PA.pushMatrix();
+        PA.translate(Pos.x+Scale.x/5,Pos.y);
+        PA.rotate(PApplet.HALF_PI);
+        PA.text(TW.Name, 0,0);
+        PA.popMatrix();
         over = false;
     }
 }

@@ -37,7 +37,7 @@ public class RenderSystem extends System
         GM.rectMode(1);
         GM.strokeWeight(Zoom/10);
         Blocks(FocusX(),FocusY());
-        GM.strokeWeight(Zoom/3);
+        GM.strokeWeight(Zoom/10);
         Shading(FocusX(),FocusY());
         for(int i = 0; i < GameManager.GM.Entity.Size(); i++)
         {

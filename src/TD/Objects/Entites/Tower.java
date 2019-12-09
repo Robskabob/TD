@@ -9,7 +9,7 @@ import processing.core.PApplet;
 
 public class Tower extends Entity
 {
-    Weapon W = new Weapon("gay",15,5,.5f,5);
+    Weapon W = new Weapon("gay",new Missile(),15,5,.1f,5,.1f);
     float fr;
 
     public Tower(int x, int y)
@@ -23,7 +23,7 @@ public class Tower extends Entity
         GameManager GM = GameManager.GM;
         Unit Target = GM.Entity.GetUnitNearPoint(Pos,W.Range);
         if(Target != null) {
-            Dir = PA.atan2(Target.Pos.y - Pos.y, Target.Pos.x - Pos.x);
+            Dir = PA.atan2(Target.Pos.y - Pos.y -.5f, Target.Pos.x - Pos.x-.5f);
             fr = W.Shoot(Pos, Dir,fr);
         }
     }

@@ -16,14 +16,16 @@ public class PathEditorUI extends Element implements ElementGroup
         int w = s - ui.GM.width/100;
         int si = (s-w)/2;
 
+        int c = 7;
+
         Buttons = new PathModeButton[]{
-                new MoveNode(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6),Pather),
-                new CreateNode(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6),Pather),
-                new RemoveNode(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6),Pather),
-                new CreateConnection(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6),Pather),
-                new RemoveConnection(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6),Pather),
-                new TestPath(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6),Pather),
-                new HidePath(new Vec2(si += s, (s-w)/2), new Vec2(w, w/6),Pather),
+                new MoveNode(new Vec2(si += s, (s-w)/2), new Vec2(w, w/(c-1)),Pather),
+                new CreateNode(new Vec2(si += s, (s-w)/2), new Vec2(w, w/(c-1)),Pather),
+                new RemoveNode(new Vec2(si += s, (s-w)/2), new Vec2(w, w/(c-1)),Pather),
+                new CreateConnection(new Vec2(si += s, (s-w)/2), new Vec2(w, w/(c-1)),Pather),
+                new RemoveConnection(new Vec2(si += s, (s-w)/2), new Vec2(w, w/(c-1)),Pather),
+                new TestPath(new Vec2(si += s, (s-w)/2), new Vec2(w, w/(c-1)),Pather),
+                new HidePath(new Vec2(si += s, (s-w)/2), new Vec2(w, w/(c-1)),Pather),
         };
     }
     public PathModeButton[] Buttons;

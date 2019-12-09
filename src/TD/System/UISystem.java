@@ -2,6 +2,7 @@ package TD.System;
 
 import TD.Main.GameManager;
 import TD.UI.Elements.*;
+import TD.UI.Elements.TowerUI.TowerUI;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class UISystem extends System
     @Override
     public void setup() {
         Elements.add(new PathEditorUI(this,GameManager.GM.Pather));
+        Elements.add(new TowerUI());
     }
 
     @Override
