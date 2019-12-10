@@ -12,8 +12,8 @@ public class PathEditorUI extends Element implements ElementGroup
     public PathEditorUI(UISystem ui,PathSystem PathSys)
     {
         Pather = PathSys;
-        int s = ui.GM.width/9;
-        int w = s - ui.GM.width/100;
+        int s = ui.PA.width/9;
+        int w = s - ui.PA.width/100;
         int si = (s-w)/2;
 
         int c = 7;

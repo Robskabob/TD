@@ -10,13 +10,13 @@ public class Missile extends Projectile {
     public Missile() { }
 
     @Override
-    public Missile New(Vec2 pos, float dir,float speed,int height)
+    public Missile New(Vec2 pos, float dir, float radius, float speed,int height)
     {
-        return new Missile(pos, dir, speed, height);
+        return new Missile(pos, dir, radius, speed, height);
     }
 
-    public Missile(Vec2 pos, float dir, float speed, int height) {
-        super(pos, dir, speed*4, height);
+    public Missile(Vec2 pos, float dir, float radius, float speed, int height) {
+        super(pos, dir, radius, speed*4, height);
         Speed = speed;
         Friction = speed/4;
     }

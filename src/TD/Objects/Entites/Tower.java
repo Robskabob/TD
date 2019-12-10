@@ -9,11 +9,16 @@ import processing.core.PApplet;
 
 public class Tower extends Entity
 {
-    Weapon W = new Weapon("gay",new Missile(),15,5,.1f,5,.1f);
+    Weapon W = new Weapon("gay",new Missile(),.1f,15,5,.1f,5,.1f);
     float fr;
 
-    public Tower(int x, int y)
-    {
+    public Tower(int x, int y) {
+        Pos = new Vec2(x,y);
+        Radius = 1;
+    }
+
+    public Tower(int x, int y, Weapon w) {
+        W = w;
         Pos = new Vec2(x,y);
         Radius = 1;
     }
@@ -23,7 +28,7 @@ public class Tower extends Entity
         GameManager GM = GameManager.GM;
         Unit Target = GM.Entity.GetUnitNearPoint(Pos,W.Range);
         if(Target != null) {
-            Dir = PA.atan2(Target.Pos.y - Pos.y -.5f, Target.Pos.x - Pos.x-.5f);
+            Dir = PA.atan2(Target.Pos.y - Pos.y, Target.Pos.x - Pos.x);
             fr = W.Shoot(Pos, Dir,fr);
         }
     }

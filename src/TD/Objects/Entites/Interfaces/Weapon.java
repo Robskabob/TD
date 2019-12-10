@@ -12,11 +12,13 @@ public class Weapon
     public float Speed;
     public float FireRate;
     public float Spread;
+    public float Radius;
     public Projectile P;
 
-    public Weapon(String name, Projectile p, float range, float damage, float speed, float fireRate, float spread) {
+    public Weapon(String name, Projectile p, float radius, float range, float damage, float speed, float fireRate, float spread) {
         Name = name;
         P = p;
+        Radius = radius;
         Range = range;
         Damage = damage;
         Speed = speed;
@@ -29,7 +31,7 @@ public class Weapon
         GameManager GM = GameManager.GM;
         if(fr>1) {
             fr-=1;
-            GM.Entity.Add(P.New(Pos, Dir+GM.random(-Spread,Spread), Speed, 3));
+            GM.Entity.Add(P.New(Pos, Dir+GM.random(-Spread,Spread),Radius, Speed, 3));
         }
         else {
             fr+=FireRate/GM.frameRate;

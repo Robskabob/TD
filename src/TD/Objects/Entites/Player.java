@@ -39,7 +39,7 @@ public class Player extends Mob {
         }
         if(GameManager.GM.mousePressed && GM.mouseButton == GameManager.LEFT)
         {
-            GameManager.GM.Entity.Add(new Projectile(Pos, Dir,.5f,Height+1));
+            GameManager.GM.Entity.Add(new Projectile(Pos, Dir,.1f,.5f,Height+1));
         }
     }
 

@@ -1,6 +1,8 @@
 package TD.UI.Elements.PathEditorButtons;
 
+import TD.Main.GameManager;
 import TD.System.PathSystem;
+import TD.System.SaveSystem;
 import TD.UI.Elements.PathEditorUI;
 import TD.UI.Elements.PathModeButton;
 import TD.UI.Elements.Theme;
@@ -17,6 +19,7 @@ public class HidePath extends PathModeButton {
         s = !a;
         if(b)
         {
+            SaveSystem.SaveMap(GameManager.GM,"NEWMAP");
             b=false;
             Selected = !Selected;
             Pather.HidePath();

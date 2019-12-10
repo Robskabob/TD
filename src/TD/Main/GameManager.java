@@ -164,17 +164,17 @@ public class GameManager extends PApplet
     {
         MXF=mouseX/Render.Zoom+Render.FocusX();
         MYF=mouseY/Render.Zoom+Render.FocusY();
-        MX=Math.round(MXF);
-        MY=Math.round(MYF);
+        MX=(int)MXF;
+        MY=(int)MYF;
     }
 
     public void mouseDragged()
     {
         MXF=mouseX/Render.Zoom+Render.FocusX();
         MYF=mouseY/Render.Zoom+Render.FocusY();
-        MX=Math.round(MXF);
-        MY=Math.round(MYF);
-        if(!(GetZoom()==10))
+        MX=(int)(MXF);
+        MY=(int)(MYF);
+        if(!((GetZoom()+2) % 4 == 0))
             return;
         if(MX<Map.Width&&MY<Map.Height&&MX>=0&&MY >=0)
         {

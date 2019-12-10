@@ -62,7 +62,10 @@ public class TowerButton extends Button {
         PA.pushMatrix();
         PA.translate(Pos.x+Scale.x/5,Pos.y);
         PA.rotate(PApplet.HALF_PI);
-        PA.text(TW.Name, 0,0);
+        if(TW == null)
+            PA.text("Deselect", 0,0);
+        else
+            PA.text(TW.Name, 0,0);
         PA.popMatrix();
         over = false;
     }

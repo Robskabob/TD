@@ -1,7 +1,6 @@
 package TD.UI.Elements.PathEditorButtons;
 
 import TD.Main.GameManager;
-import TD.Objects.Unit;
 import TD.System.PathSystem;
 import TD.UI.Elements.PathEditorUI;
 import TD.UI.Elements.PathModeButton;
@@ -31,13 +30,13 @@ public class TestPath extends PathModeButton {
         {
             if(!over)
             {
-                if (Pather.GM.mousePressed) {
+                if (Pather.PA.mousePressed) {
                     PathSystem.Node N = Pather.GetNodeNearMouse(3);
                     if(N != null) {
-                        if (Pather.GM.mouseButton == GameManager.LEFT) {
+                        if (Pather.PA.mouseButton == GameManager.LEFT) {
                             Pather.Sel = N;
                         }
-                        if (Pather.GM.mouseButton == GameManager.RIGHT) {
+                        if (Pather.PA.mouseButton == GameManager.RIGHT) {
                             Pather.las = N;
                         }
                     }

@@ -21,7 +21,7 @@ public abstract class Mob extends Entity
     {
         if(Vel.x<0)
         {
-            if(CanColl(GameManager.GM.GetBlockAt((int)(Pos.x+Vel.x-Radius),(int)(Pos.y)).Depth))
+            if(CanColl(GameManager.GM.GetBlockAt((int)(Pos.x+Vel.x-Radius),(int)(Pos.y)).height))
             {
                 Pos.x+=Vel.x;
             }
@@ -32,7 +32,7 @@ public abstract class Mob extends Entity
         }
         else
         {
-            if(CanColl(GameManager.GM.GetBlockAt((int)(Pos.x+Vel.x+Radius),(int)(Pos.y)).Depth))
+            if(CanColl(GameManager.GM.GetBlockAt((int)(Pos.x+Vel.x+Radius),(int)(Pos.y)).height))
             {
                 Pos.x+=Vel.x;
             }
@@ -43,7 +43,7 @@ public abstract class Mob extends Entity
         }
         if(Vel.y<0)
         {
-            if(CanColl(GameManager.GM.GetBlockAt((int)(Pos.x),(int)(Pos.y+Vel.y-Radius)).Depth))
+            if(CanColl(GameManager.GM.GetBlockAt((int)(Pos.x),(int)(Pos.y+Vel.y-Radius)).height))
             {
                 Pos.y+=Vel.y;
             }
@@ -54,7 +54,7 @@ public abstract class Mob extends Entity
         }
         else
         {
-            if(CanColl(GameManager.GM.GetBlockAt((int)(Pos.x),(int)(Pos.y+Vel.y+Radius)).Depth))
+            if(CanColl(GameManager.GM.GetBlockAt((int)(Pos.x),(int)(Pos.y+Vel.y+Radius)).height))
             {
                 Pos.y+=Vel.y;
             }

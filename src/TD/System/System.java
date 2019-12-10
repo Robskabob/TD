@@ -1,13 +1,12 @@
 package TD.System;
 
-import TD.Main.GameManager;
 import processing.core.PApplet;
 
 public abstract class System {
-    public PApplet GM;
+    public PApplet PA;
 
-    public System(PApplet gm) {
-        GM = gm;
+    public System(PApplet pa) {
+        PA = pa;
     }
 
     public abstract void setup();

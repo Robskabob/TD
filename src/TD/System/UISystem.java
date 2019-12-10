@@ -6,7 +6,6 @@ import TD.UI.Elements.TowerUI.TowerUI;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 public class UISystem extends System
 {
@@ -21,7 +20,7 @@ public class UISystem extends System
 
     public boolean IsMouseOver(Selectable S)
     {
-        return  (( GM.mouseX >= S.GetPos().x && GM.mouseX <= S.GetPos().x + S.GetScale().x) && ( GM.mouseY >= S.GetPos().y && GM.mouseY <= S.GetPos().y + S.GetScale().y));
+        return  (( PA.mouseX >= S.GetPos().x && PA.mouseX <= S.GetPos().x + S.GetScale().x) && ( PA.mouseY >= S.GetPos().y && PA.mouseY <= S.GetPos().y + S.GetScale().y));
     }
 
     @Override
@@ -39,14 +38,14 @@ public class UISystem extends System
     }
 
     private void UpdateElement(Element E) {
-        E.draw(GM,T);
+        E.draw(PA,T);
         if(E instanceof Selectable)
         {
             Selectable S = (Selectable)E;
             if(S!=Sel) {
                 if (IsMouseOver(S)) {
                     S.MouseOver();
-                    if (GM.mousePressed && GM.mouseButton == PApplet.LEFT) {
+                    if (PA.mousePressed && PA.mouseButton == PApplet.LEFT) {
                         if (Sel != S) {
                             if (Sel != null)
                                 Sel.DeSelect();

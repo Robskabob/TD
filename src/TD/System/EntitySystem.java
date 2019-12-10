@@ -1,15 +1,12 @@
 package TD.System;
 
 import TD.Main.GameManager;
-import TD.Objects.Entites.Player;
 import TD.Objects.Entites.Tower;
 import TD.Objects.Entity;
-import TD.Objects.Resources;
 import TD.Objects.Unit;
 import TD.Util.Vec2;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -60,17 +57,36 @@ public class EntitySystem extends System
                 i--;
                 continue;
             }
-            E.Update(GM);
-            E.Physics(GM);
+            E.Update(PA);
+            E.Physics(PA);
         }
 
-        GM.strokeCap(2);
+        PA.strokeCap(2);
         Rnd.setSeed(RR);
-        GM.textSize(10);
+        PA.textSize(10);
         //for(int i = 0; i < R.length; i++)
         //{
         //    R[i].draw(GM.Render.FocusX(), GM.Render.FocusY(),GM);
         //}
+    }
+
+    public Tower GetTowerNearPoint(Vec2 Pos, float MaxDist)
+    {
+        MaxDist *= MaxDist;
+        Tower N = null;
+
+        for(int i = 0; i < Towers.size(); i++)
+        {
+            Tower I = Towers.get(i);
+            float f = I.Pos.sub(Pos).sqMag();
+            if (f < MaxDist)
+            {
+                MaxDist = f;
+                N = I;
+            }
+        }
+
+        return N;
     }
 
     public Unit GetUnitNearPoint(Vec2 Pos, float MaxDist)

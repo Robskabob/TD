@@ -14,7 +14,7 @@ public class CreateNode extends PathModeButton {
     @Override
     public void Selected()
     {
-        if(Pather.GetNodeNearMouse(3) == null && !over && Pather.GM.mousePressed && Pather.GM.mouseButton == GameManager.LEFT)
+        if(Pather.GetNodeNearMouse(3) == null && !over && Pather.PA.mousePressed && Pather.PA.mouseButton == GameManager.LEFT)
         {
             Pather.CreateNode();
         }

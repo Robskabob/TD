@@ -15,7 +15,7 @@ public class RemoveNode extends PathModeButton {
     public void Selected()
     {
         PathSystem.Node N = Pather.GetNodeNearMouse(1);
-        if(N != null && !over && Pather.GM.mousePressed && Pather.GM.mouseButton == GameManager.LEFT)
+        if(N != null && !over && Pather.PA.mousePressed && Pather.PA.mouseButton == GameManager.LEFT)
         {
             Pather.RemoveNode(N);
         }

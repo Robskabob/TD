@@ -16,7 +16,7 @@ public class MoveNode extends PathModeButton {
     {
         if(!over)
         {
-            if (Pather.GM.mousePressed) {
+            if (Pather.PA.mousePressed) {
 
                 if(Pather.Sel == null)
                 {

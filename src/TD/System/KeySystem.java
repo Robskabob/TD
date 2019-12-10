@@ -27,14 +27,14 @@ public class KeySystem extends System {
     }
 
     public void KeyDown() {
-        if (Last != GM.key) {
-            Keys.put(GM.key, true);
+        if (Last != PA.key) {
+            Keys.put(PA.key, true);
         }
     }
 
     public void KeyUp() {
-        if (Last != GM.key) {
-            Keys.put(GM.key, false);
+        if (Last != PA.key) {
+            Keys.put(PA.key, false);
         }
     }
 }

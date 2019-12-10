@@ -9,7 +9,6 @@ import TD.Objects.Interfaces.Pather;
 import TD.Objects.Unit;
 import TD.Util.Vec2;
 import javafx.util.Pair;
-import sun.net.httpserver.HttpServerImpl;
 
 import java.util.*;
 
@@ -62,7 +61,7 @@ public class PathSystem extends System {
         public void PlaceNode() {
             GameManager GM = GameManager.GM;
             Block B = GM.Map.BlockMap.get(GM.Map.Get((int)Pos.x,(int)Pos.y));
-            Height = B.Depth;
+            Height = B.height;
             T = B.T;
         }
 
@@ -232,7 +231,7 @@ public class PathSystem extends System {
     }
     public void HidePath(){draw = !draw;}
     public void TestPath(){
-        if(GM.frameCount%15==0)
+        if(PA.frameCount%15==0)
         {
             if(las!=null&&Sel!=null&&Sel!=las) {
                 double r = Math.random();
@@ -273,7 +272,7 @@ public class PathSystem extends System {
     {
         if(Sel == null)
         {
-            if(GM.mousePressed&&GM.mouseButton==GameManager.LEFT)
+            if(PA.mousePressed&& PA.mouseButton==GameManager.LEFT)
             {
                 for(int i = 0; i < Nodes.size(); i++)
                 {
@@ -286,12 +285,12 @@ public class PathSystem extends System {
                         return;
                     }
                     if (N.Pos.sub(new Vec2(GameManager.GM.MX, GameManager.GM.MY)).sqMag() < 1) {
-                        if (GM.keyCode == GameManager.SHIFT&&!las.Connections.contains(N)) {
+                        if (PA.keyCode == GameManager.SHIFT&&!las.Connections.contains(N)) {
                             N.Connections.add(las);
                             las.Connections.add(N);
                             return;
                         }
-                        if (GM.keyCode == GameManager.CONTROL&&las.Connections.contains(N)) {
+                        if (PA.keyCode == GameManager.CONTROL&&las.Connections.contains(N)) {
                             N.Connections.remove(las);
                             las.Connections.remove(N);
                             return;
@@ -330,7 +329,7 @@ public class PathSystem extends System {
             if(GameManager.GM.GetKey('m')) {
                 Sel.Pos.Set(GameManager.GM.MX, GameManager.GM.MY);
             }
-            if(GM.mousePressed&&GM.mouseButton==GameManager.RIGHT) {
+            if(PA.mousePressed&& PA.mouseButton==GameManager.RIGHT) {
                 if(Sel!=null)
                 las = Sel;
                 Sel=null;

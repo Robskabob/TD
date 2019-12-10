@@ -7,7 +7,7 @@ public class Block
 {
     private GameManager gameManager;
     public int Color;
-    public int Depth;
+    public int height;
     public PathSystem.Terrain T;
 
     public Block(GameManager gameManager, int r, int g, int b, int D, PathSystem.Terrain t)
@@ -15,6 +15,6 @@ public class Block
         T = t;
         this.gameManager = gameManager;
         Color = gameManager.color(r,g,b);
-        Depth = D;
+        height = D;
     }
 }
