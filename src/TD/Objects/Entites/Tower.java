@@ -1,5 +1,6 @@
 package TD.Objects.Entites;
 
+import TD.Main.Engine;
 import TD.Main.GameManager;
 import TD.Objects.Entites.Interfaces.Weapon;
 import TD.Objects.Entity;
@@ -24,29 +25,28 @@ public class Tower extends Entity
     }
 
     @Override
-    public void Update(PApplet PA) {
-        GameManager GM = GameManager.GM;
-        Unit Target = GM.Entity.GetUnitNearPoint(Pos,W.Range);
+    public void Update(Engine E) {
+        Unit Target = E.EntitySys.GetUnitNearPoint(Pos,W.Range);
         if(Target != null) {
-            Dir = PA.atan2(Target.Pos.y - Pos.y, Target.Pos.x - Pos.x);
-            fr = W.Shoot(Pos, Dir,fr);
+            Dir = PApplet.atan2(Target.Pos.y - Pos.y, Target.Pos.x - Pos.x);
+            fr = W.Shoot(E.EntitySys,Pos, Dir,fr);
         }
     }
 
     @Override
-    public void draw(PApplet GM, float x, float y, float rot, float scale) {
-        GM.pushMatrix();
-        GM.translate(x,y);
+    public void draw(PApplet PA, float x, float y, float rot, float scale) {
+        PA.pushMatrix();
+        PA.translate(x,y);
 
-        GM.fill(100);
-        GM.rect(.1f*scale,.1f*scale,(Radius-.1f)*scale,(Radius-.1f)*scale);
+        PA.fill(100);
+        PA.rect(.1f*scale,.1f*scale,(Radius-.1f)*scale,(Radius-.1f)*scale);
 
 
-        GM.translate((Radius/2)*scale,(Radius/2)*scale);
-        GM.rotate(rot);
-        GM.ellipse(0, 0, (Radius/2-.2f)*scale, (Radius/2-.2f)*scale);
-        GM.rect(0,-(Radius/8)*scale,(Radius)*scale,(Radius/8)*scale);
+        PA.translate((Radius/2)*scale,(Radius/2)*scale);
+        PA.rotate(rot);
+        PA.ellipse(0, 0, (Radius/2-.2f)*scale, (Radius/2-.2f)*scale);
+        PA.rect(0,-(Radius/8)*scale,(Radius)*scale,(Radius/8)*scale);
 
-        GM.popMatrix();
+        PA.popMatrix();
     }
 }

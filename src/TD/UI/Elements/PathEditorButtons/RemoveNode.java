@@ -5,6 +5,7 @@ import TD.System.PathSystem;
 import TD.UI.Elements.PathEditorUI;
 import TD.UI.Elements.PathModeButton;
 import TD.Util.Vec2;
+import processing.core.PApplet;
 
 public class RemoveNode extends PathModeButton {
     public RemoveNode(Vec2 pos, Vec2 scale, PathSystem PathSys) {
@@ -12,10 +13,10 @@ public class RemoveNode extends PathModeButton {
     }
 
     @Override
-    public void Selected()
+    public void Selected(PApplet PA)
     {
         PathSystem.Node N = Pather.GetNodeNearMouse(1);
-        if(N != null && !over && Pather.PA.mousePressed && Pather.PA.mouseButton == GameManager.LEFT)
+        if(N != null && !over && PA.mousePressed && PA.mouseButton == GameManager.LEFT)
         {
             Pather.RemoveNode(N);
         }

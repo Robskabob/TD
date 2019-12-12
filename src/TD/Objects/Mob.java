@@ -1,8 +1,8 @@
 package TD.Objects;
 
+import TD.Main.Engine;
 import TD.Main.GameManager;
 import TD.Util.Vec2;
-import processing.core.PApplet;
 
 public abstract class Mob extends Entity
 {
@@ -17,11 +17,11 @@ public abstract class Mob extends Entity
         return Height == h;
     }
 
-    public void Physics(PApplet GM)
+    public void Physics(Engine E)
     {
         if(Vel.x<0)
         {
-            if(CanColl(GameManager.GM.GetBlockAt((int)(Pos.x+Vel.x-Radius),(int)(Pos.y)).height))
+            if(CanColl(E.GetBlockAt((int)(Pos.x+Vel.x-Radius),(int)(Pos.y)).height))
             {
                 Pos.x+=Vel.x;
             }
@@ -32,7 +32,7 @@ public abstract class Mob extends Entity
         }
         else
         {
-            if(CanColl(GameManager.GM.GetBlockAt((int)(Pos.x+Vel.x+Radius),(int)(Pos.y)).height))
+            if(CanColl(E.GetBlockAt((int)(Pos.x+Vel.x+Radius),(int)(Pos.y)).height))
             {
                 Pos.x+=Vel.x;
             }
@@ -43,7 +43,7 @@ public abstract class Mob extends Entity
         }
         if(Vel.y<0)
         {
-            if(CanColl(GameManager.GM.GetBlockAt((int)(Pos.x),(int)(Pos.y+Vel.y-Radius)).height))
+            if(CanColl(E.GetBlockAt((int)(Pos.x),(int)(Pos.y+Vel.y-Radius)).height))
             {
                 Pos.y+=Vel.y;
             }
@@ -54,7 +54,7 @@ public abstract class Mob extends Entity
         }
         else
         {
-            if(CanColl(GameManager.GM.GetBlockAt((int)(Pos.x),(int)(Pos.y+Vel.y+Radius)).height))
+            if(CanColl(E.GetBlockAt((int)(Pos.x),(int)(Pos.y+Vel.y+Radius)).height))
             {
                 Pos.y+=Vel.y;
             }

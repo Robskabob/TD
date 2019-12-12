@@ -1,6 +1,6 @@
 package TD.UI.Elements;
-import TD.UI.Elements.Element;
 import TD.Util.Vec2;
+import processing.core.PApplet;
 
 public abstract class Button extends Element implements Selectable
 {
@@ -8,13 +8,13 @@ public abstract class Button extends Element implements Selectable
     public boolean over = false;
 
     @Override
-    public boolean Select() {
+    public boolean Select(PApplet PA) {
         Selected = true;
         return false;
     }
 
     @Override
-    public void DeSelect() {
+    public void DeSelect(PApplet PA) {
         Selected = false;
     }
 

@@ -1,26 +1,30 @@
 package TD.System;
 
+import TD.Main.Engine;
 import TD.Main.GameManager;
+import TD.Main.GameMode;
 import TD.Objects.Entites.Tower;
 import TD.Objects.Entity;
 import TD.Objects.Unit;
 import TD.Util.Vec2;
+import processing.core.PApplet;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class EntitySystem extends System
+public class EntitySystem extends GameSystem
 {
-    public EntitySystem(GameManager gm) {
-        super(gm);
-    }
 
     Random Rnd = new Random();
 
     private List<Entity> Entities = new ArrayList<>();
     public List<Unit> Units = new ArrayList<Unit>();
     public List<Tower> Towers = new ArrayList<Tower>();
+
+    public EntitySystem(Engine e, GameMode g) {
+        super(e, g);
+    }
 
     //Resource R[];
 
@@ -46,28 +50,33 @@ public class EntitySystem extends System
     }
     public int RR=0;
     @Override
-    public void draw()
+    public void update()
     {
         for(int i = 0; i < Size(); i++)
         {
-            Entity E = Get(i);
-            if(E.Dead)
+            Entity En = Get(i);
+            if(En.Dead)
             {
-                Remove(E);
+                Remove(En);
                 i--;
                 continue;
             }
-            E.Update(PA);
-            E.Physics(PA);
+            En.Update(E);
+            En.Physics(E);
         }
 
-        PA.strokeCap(2);
+        //PA.strokeCap(2);
         Rnd.setSeed(RR);
-        PA.textSize(10);
+        //PA.textSize(10);
         //for(int i = 0; i < R.length; i++)
         //{
         //    R[i].draw(GM.Render.FocusX(), GM.Render.FocusY(),GM);
         //}
+    }
+
+    @Override
+    public void draw(PApplet PA) {
+
     }
 
     public Tower GetTowerNearPoint(Vec2 Pos, float MaxDist)

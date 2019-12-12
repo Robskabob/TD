@@ -47,14 +47,14 @@ int w = 0;
         if (Sel != null) {
             PA.rectMode(0);
             GameManager GM = GameManager.GM;
-            float z = GM.GetZoom();
-            Vec2 P = new Vec2((GM.MX-GM.P.Pos.x)*z+GM.width/2,(GM.MY-GM.P.Pos.y)*z+GM.height/2);
+            float z = GM.E.GetZoom();
+            Vec2 P = new Vec2((GM.MX-GM.E.RenderSys.Focus().x)*z+GM.width/2,(GM.MY-GM.E.RenderSys.Focus().y)*z+GM.height/2);
             PA.square(P.x,P.y, z);
             PA.text(Sel.Name,PA.mouseX, PA.mouseY);
             PA.rectMode(1);
             if(GM.mousePressed && GM.mouseButton == PApplet.LEFT) {
-                if(w<0&&GM.Entity.GetTowerNearPoint(P,1)==null) {
-                    GM.Entity.Add(new Tower(GM.MX,GM.MY,Sel));
+                if(w<0&&GM.E.EntitySys.GetTowerNearPoint(P,1)==null) {
+                    GM.E.EntitySys.Add(new Tower(GM.MX,GM.MY,Sel));
                     w=100;
                 }
             }

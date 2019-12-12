@@ -1,19 +1,24 @@
 package TD.System;
 
+import TD.Main.Engine;
 import TD.Main.GameManager;
+import TD.Main.GameMode;
 import TD.Objects.Block;
+import processing.core.PApplet;
 
 import java.util.ArrayList;
 
-public class MapSystem extends System {
+//remove switch to Map Data
+
+public class DepMapSystem extends GameSystem {
     public int Width;
     public int Height;
     public int[][] Map;
 
-    public ArrayList<Block> BlockMap = new ArrayList<>();
+    public Block[] BlockMap = new Block[]{};
 
-    public MapSystem(GameManager gm) {
-        super(gm);
+    public DepMapSystem(Engine e, GameMode g) {
+        super(e, g);
     }
 
     public void setup() {
@@ -30,7 +35,12 @@ public class MapSystem extends System {
     }
 
     @Override
-    public void draw() {
+    public void update() {
+
+    }
+
+    @Override
+    public void draw(PApplet PA) {
 
     }
 

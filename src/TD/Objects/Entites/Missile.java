@@ -1,9 +1,9 @@
 package TD.Objects.Entites;
 
+import TD.Main.Engine;
 import TD.Main.GameManager;
 import TD.Objects.Unit;
 import TD.Util.Vec2;
-import processing.core.PApplet;
 
 public class Missile extends Projectile {
 
@@ -24,7 +24,7 @@ public class Missile extends Projectile {
     Unit Lock;
 
     @Override
-    public void Update(PApplet GM)
+    public void Update(Engine E)
     {
         life--;
         if(life<0)
@@ -32,12 +32,12 @@ public class Missile extends Projectile {
             Dead = true;
         }
         if(Lock == null) {
-            Lock = GameManager.GM.Entity.GetUnitNearPoint(Pos,5f);
+            Lock = E.EntitySys.GetUnitNearPoint(Pos,5f);
         }
         else {
             Vel.Add(Lock.Pos.sub(Pos).normilize().mult(Speed));
 
-            Unit U = GameManager.GM.Entity.GetUnitNearPoint(Pos,Lock.Radius*2);
+            Unit U = E.EntitySys.GetUnitNearPoint(Pos,Lock.Radius*2);
 
             if(U!=null)
             {

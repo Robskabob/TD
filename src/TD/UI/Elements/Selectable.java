@@ -1,16 +1,17 @@
 package TD.UI.Elements;
 
 import TD.Util.Vec2;
+import processing.core.PApplet;
 
 public interface Selectable
 {
     char ShortCut();
 
-    boolean Select();
-    void Selected();
-    void DeSelect();
+    boolean Select(PApplet PA);
+    void Selected(PApplet PA);
+    void DeSelect(PApplet PA);
 
-    void MouseOver();
+    void MouseOver(PApplet PA);
 
     Vec2 GetPos();
     Vec2 GetScale();

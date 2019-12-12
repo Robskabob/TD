@@ -20,7 +20,7 @@ public class UITester extends PApplet
     }
 
     public void draw() {
-        UI.draw();
+        UI.update();
     }
 
 }

@@ -15,7 +15,7 @@ public class HidePath extends PathModeButton {
     }
     boolean a,b,s;
     @Override
-    public boolean Select() {
+    public boolean Select(PApplet PA) {
         s = !a;
         if(b)
         {

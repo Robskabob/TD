@@ -1,5 +1,6 @@
 package TD.Objects;
 
+import TD.Main.Engine;
 import TD.Main.GameManager;
 import TD.Objects.Interfaces.Pather;
 import TD.System.PathSystem;
@@ -44,8 +45,8 @@ public class Unit extends Mob implements Pather
         pathIndex = 0;
     }
 
-    public Unit(PathSystem.Node las, PathSystem.Node sel) {
-        path = GameManager.GM.Pather.GetPath(las,sel,this);
+    public Unit(Engine E, PathSystem.Node sel, PathSystem.Node las) {
+        path = E.PathSys.GetPath(las,sel,this);
         Pos = new Vec2(path.path.get(0).Pos);
         Vel = new Vec2(0,0);
         Radius=.3f;
@@ -63,28 +64,28 @@ public class Unit extends Mob implements Pather
     }
 
     @Override
-    public void Update(PApplet GM) {
+    public void Update(Engine E) {
         Vel.Add(path.getNext(Pos,this).sub(Pos).normilize().mult(Speed));
         if(path.isEnd(this)||0 > HP)
             Dead = true;
     }
 
     @Override
-    public void draw(PApplet GM, float x, float y, float rot, float scale) {
-        GM.pushMatrix();
-        GM.translate(x,y);
-        GM.rotate(rot);
+    public void draw(PApplet PA, float x, float y, float rot, float scale) {
+        PA.pushMatrix();
+        PA.translate(x,y);
+        PA.rotate(rot);
 
-        GM.ellipseMode(2);
+        PA.ellipseMode(2);
         if(Water)
-            GM.fill(60,60,160);
+            PA.fill(60,60,160);
         else
-            GM.fill(60);
-        GM.stroke(30);
-        GM.strokeWeight(1);
-        GM.ellipse(0, 0, Radius*scale, Radius*scale);
+            PA.fill(60);
+        PA.stroke(30);
+        PA.strokeWeight(1);
+        PA.ellipse(0, 0, Radius*scale, Radius*scale);
 
-        GM.popMatrix();
+        PA.popMatrix();
     }
 
     @Override

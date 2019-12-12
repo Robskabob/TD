@@ -6,8 +6,6 @@ import TD.UI.Elements.Theme;
 import TD.Util.Vec2;
 import processing.core.PApplet;
 
-import java.util.Scanner;
-
 public class TowerButton extends Button {
     public TowerButton(Vec2 pos, Vec2 scale, Weapon tw, TowerUI tui)
     {
@@ -26,24 +24,24 @@ public class TowerButton extends Button {
     }
 
     @Override
-    public boolean Select() {
+    public boolean Select(PApplet PA) {
         Selected = true;
         TUI.Sel = TW;
         return true;
     }
 
     @Override
-    public void Selected() {
+    public void Selected(PApplet PA) {
 
     }
 
     @Override
-    public void DeSelect() {
+    public void DeSelect(PApplet PA) {
         Selected = false;
     }
 
     @Override
-    public void MouseOver() {
+    public void MouseOver(PApplet PA) {
         over = true;
     }
 

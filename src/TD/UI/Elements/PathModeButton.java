@@ -25,23 +25,23 @@ public class PathModeButton extends Button
     }
 
     @Override
-    public boolean Select() {
+    public boolean Select(PApplet PA) {
         Selected = true;
         return true;
     }
 
     @Override
-    public void Selected() {
+    public void Selected(PApplet PA) {
 
     }
 
     @Override
-    public void DeSelect() {
+    public void DeSelect(PApplet PA) {
         Selected = false;
     }
 
     @Override
-    public void MouseOver() {
+    public void MouseOver(PApplet PA) {
         over = true;
     }
 

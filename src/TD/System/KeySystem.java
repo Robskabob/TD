@@ -1,24 +1,29 @@
 package TD.System;
 
 import TD.Main.GameManager;
+import processing.core.PApplet;
 
 import java.util.HashMap;
 
-public class KeySystem extends System {
+public class KeySystem extends MainSystem {
     private char Last;
     private HashMap<Character, Boolean> Keys = new HashMap();
 
-    public KeySystem(GameManager gm) {
-        super(gm);
-    }
-
-    public void setup() {
-        Keys.put('s', false);
-        Keys.put('d', false);
+    public KeySystem(GameManager pa) {
+        super(pa);
     }
 
     @Override
-    public void draw() {
+    public void setup() {
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void draw(PApplet PA) {
 
     }
 
@@ -27,14 +32,14 @@ public class KeySystem extends System {
     }
 
     public void KeyDown() {
-        if (Last != PA.key) {
-            Keys.put(PA.key, true);
+        if (Last != GM.key) {
+            Keys.put(GM.key, true);
         }
     }
 
     public void KeyUp() {
-        if (Last != PA.key) {
-            Keys.put(PA.key, false);
+        if (Last != GM.key) {
+            Keys.put(GM.key, false);
         }
     }
 }

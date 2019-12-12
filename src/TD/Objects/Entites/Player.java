@@ -1,5 +1,6 @@
 package TD.Objects.Entites;
 
+import TD.Main.Engine;
 import TD.Main.GameManager;
 import TD.Objects.Mob;
 import TD.Util.Vec2;
@@ -18,44 +19,44 @@ public class Player extends Mob {
     }
 
     @Override
-    public void Update(PApplet GM)
+    public void Update(Engine E)
     {
-        Dir = GM.atan2(GM.mouseY-(GM.height/2),GM.mouseX-(GM.width/2));
-        if(GameManager.GM.GetKey('w'))
+        Dir = PApplet.atan2(E.GetMouse().y-(E.ScreenHeight()/2), E.GetMouse().x-(E.ScreenWidth()/2));
+        if(E.GetKey('w'))
         {
             Vel.y -= Speed;
         }
-        if(GameManager.GM.GetKey('a'))
+        if(E.GetKey('a'))
         {
             Vel.x-=Speed;
         }
-        if(GameManager.GM.GetKey('s'))
+        if(E.GetKey('s'))
         {
             Vel.y+=Speed;
         }
-        if(GameManager.GM.GetKey('d'))
+        if(E.GetKey('d'))
         {
             Vel.x+=Speed;
         }
-        if(GameManager.GM.mousePressed && GM.mouseButton == GameManager.LEFT)
+        if(GameManager.GM.mousePressed && GameManager.GM.mouseButton == GameManager.LEFT)
         {
-            GameManager.GM.Entity.Add(new Projectile(Pos, Dir,.1f,.5f,Height+1));
+            E.EntitySys.Add(new Projectile(Pos, Dir,.1f,.5f,Height+1));
         }
     }
 
     @Override
-    public void draw(PApplet GM, float x, float y, float rot, float scale)
+    public void draw(PApplet PA, float x, float y, float rot, float scale)
     {
-        GM.pushMatrix();
-        GM.translate(x,y);
-        GM.rotate(rot);
+        PA.pushMatrix();
+        PA.translate(x,y);
+        PA.rotate(rot);
 
-        GM.ellipseMode(2);
-        GM.fill(60);
-        GM.stroke(30);
-        GM.strokeWeight(1);
-        GM.ellipse(0, 0, Radius*scale, Radius*scale);
+        PA.ellipseMode(2);
+        PA.fill(60);
+        PA.stroke(30);
+        PA.strokeWeight(1);
+        PA.ellipse(0, 0, Radius*scale, Radius*scale);
 
-        GM.popMatrix();
+        PA.popMatrix();
     }
 }

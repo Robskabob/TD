@@ -1,6 +1,8 @@
 package TD.System;
 
+import TD.Main.Engine;
 import TD.Main.GameManager;
+import TD.Main.GameMode;
 import TD.Objects.Block;
 import TD.Objects.Entites.Units.Runner;
 import TD.Objects.Entites.Units.Walker;
@@ -9,19 +11,21 @@ import TD.Objects.Interfaces.Pather;
 import TD.Objects.Unit;
 import TD.Util.Vec2;
 import javafx.util.Pair;
+import processing.core.PApplet;
 
 import java.util.*;
 
-public class PathSystem extends System {
-    public PathSystem(GameManager gm) {
-        super(gm);
-    }
+public class PathSystem extends GameSystem {
 
     public List<Node> Nodes = new ArrayList<Node>();
     public List<Node> Starts = new ArrayList<Node>();
     public List<Node> Ends = new ArrayList<Node>();
 
     public boolean draw = true;
+
+    public PathSystem(Engine e, GameMode g) {
+        super(e, g);
+    }
 
     public enum Terrain
     {
@@ -60,7 +64,7 @@ public class PathSystem extends System {
 
         public void PlaceNode() {
             GameManager GM = GameManager.GM;
-            Block B = GM.Map.BlockMap.get(GM.Map.Get((int)Pos.x,(int)Pos.y));
+            Block B = E.GetBlockAt(Pos);
             Height = B.height;
             T = B.T;
         }
@@ -230,18 +234,22 @@ public class PathSystem extends System {
         Nodes.remove(N);
     }
     public void HidePath(){draw = !draw;}
+
+    int w = 0;
     public void TestPath(){
-        if(PA.frameCount%15==0)
+        w++;
+        if(w>10)
         {
+            w=0;
             if(las!=null&&Sel!=null&&Sel!=las) {
                 double r = Math.random();
                 if (r < .3) {
-                    GameManager.GM.Entity.Add(new Runner(las, Sel));
+                    E.EntitySys.Add(new Runner(E,las, Sel));
                 } else if(r<.6) {
-                    GameManager.GM.Entity.Add(new Walker(las, Sel));
+                    E.EntitySys.Add(new Walker(E,las, Sel));
                 }
                 else {
-                    GameManager.GM.Entity.Add(new WaterMan(las, Sel));
+                    E.EntitySys.Add(new WaterMan(E,las, Sel));
                 }
             }
         }
@@ -268,93 +276,25 @@ public class PathSystem extends System {
     }
 
 
-    public void EditPath()
-    {
-        if(Sel == null)
-        {
-            if(PA.mousePressed&& PA.mouseButton==GameManager.LEFT)
-            {
-                for(int i = 0; i < Nodes.size(); i++)
-                {
-                    Node N = Nodes.get(i);
-                    if(GameManager.GM.GetKey('g')&&N.Pos.sub(new Vec2(GameManager.GM.MX,GameManager.GM.MY)).sqMag()<1)
-                    {
-                        if(Sel!=null)
-                        las = Sel;
-                        Sel = N;
-                        return;
-                    }
-                    if (N.Pos.sub(new Vec2(GameManager.GM.MX, GameManager.GM.MY)).sqMag() < 1) {
-                        if (PA.keyCode == GameManager.SHIFT&&!las.Connections.contains(N)) {
-                            N.Connections.add(las);
-                            las.Connections.add(N);
-                            return;
-                        }
-                        if (PA.keyCode == GameManager.CONTROL&&las.Connections.contains(N)) {
-                            N.Connections.remove(las);
-                            las.Connections.remove(N);
-                            return;
-                        }
-                        if(Sel!=null)
-                            las = Sel;
-                            Sel = N;
-                    }
-
-
-                }
-                if(GameManager.GM.GetKey('n')) {
-                    if(Sel!=null)
-                    las = Sel;
-                    Sel = new Node(GameManager.GM.MX, GameManager.GM.MY);
-                    Nodes.add(Sel);
-                    return;
-                }
-            }
-        }
-        else
-        {
-            //for(int i = 0; i < Nodes.size(); i++) {
-            //    Node N = Nodes.get(i);
-            //    if (N.Pos.sub(new Vec2(GM.MX, GM.MY)).sqMag() < 1) {
-            //        if (GM.keyCode == GameManager.SHIFT) {
-            //            N.Connections.add(Sel);
-            //            Sel.Connections.add(N);
-            //        }
-            //        if (GM.keyCode == GameManager.CONTROL&&Sel.Connections.contains(N)) {
-            //            N.Connections.remove(Sel);
-            //            Sel.Connections.remove(N);
-            //        }
-            //    }
-            //}
-            if(GameManager.GM.GetKey('m')) {
-                Sel.Pos.Set(GameManager.GM.MX, GameManager.GM.MY);
-            }
-            if(PA.mousePressed&& PA.mouseButton==GameManager.RIGHT) {
-                if(Sel!=null)
-                las = Sel;
-                Sel=null;
-            }
-        }
-    }
-
     @Override
     public void setup() {
 
     }
 
     @Override
-    public void draw() {
-        GameManager GM = GameManager.GM;
-        if(GM.GetKey('u')&&GM.frameCount%5==0)
-        {
-            if(las!=null&&Sel!=null)
-                GM.Entity.Add(new Unit(las,Sel));
+    public void update() {
+        if (E.GetKey('u') && GameManager.GM.frameCount % 5 == 0) {
+            if (las != null && Sel != null)
+                E.EntitySys.Add(new Unit(E, Sel, las));
         }
 
-        if(GM.GetKey('p')&&GM.frameCount%10==0)
-        {
+        if (E.GetKey('p') && GameManager.GM.frameCount % 10 == 0) {
             draw = !draw;
         }
+    }
+
+    @Override
+    public void draw(PApplet PA){
 
         if(draw)
         {
@@ -363,29 +303,29 @@ public class PathSystem extends System {
             {
                 Node N = Nodes.get(i);
                 if (Sel == N) {
-                    GM.fill(100, 100, 200);
+                    PA.fill(100, 100, 200);
                 } else if (las == N) {
-                    GM.fill(100, 200, 100);
+                    PA.fill(100, 200, 100);
                 } else if (N.T == Terrain.Land) {
-                    GM.fill(50, 250, 50);
+                    PA.fill(50, 250, 50);
                 } else if (N.T == Terrain.Water) {
-                    GM.fill(10, 10, 250);
+                    PA.fill(10, 10, 250);
                 } else {
-                    GM.fill(100, 100, 100);
+                    PA.fill(100, 100, 100);
                 }
-                GM.ellipse((N.Pos.x - GM.P.Pos.x) * GM.Render.Zoom + GM.width / 2, (N.Pos.y - GM.P.Pos.y) * GM.Render.Zoom + GM.height / 2, GM.Render.Zoom / 3, GM.Render.Zoom / 3);
+                PA.ellipse((N.Pos.x - E.RenderSys.Focus().x) * E.GetZoom() + PA.width / 2, (N.Pos.y - E.RenderSys.Focus().y) * E.RenderSys.Zoom + PA.height / 2, E.RenderSys.Zoom / 3, E.RenderSys.Zoom / 3);
                 for (int j = 0; j < N.Connections.size(); j++) {
-                    GM.line((N.Pos.x - GM.P.Pos.x) * GM.Render.Zoom + GM.width / 2, (N.Pos.y - GM.P.Pos.y) * GM.Render.Zoom + GM.height / 2, (N.Connections.get(j).Pos.x - GM.P.Pos.x) * GM.Render.Zoom + GM.width / 2, (N.Connections.get(j).Pos.y - GM.P.Pos.y) * GM.Render.Zoom + GM.height / 2);
+                    PA.line((N.Pos.x - E.RenderSys.Focus().x) * E.GetZoom() + PA.width / 2, (N.Pos.y - E.RenderSys.Focus().y) * E.RenderSys.Zoom + PA.height / 2, (N.Connections.get(j).Pos.x - E.RenderSys.Focus().x) * E.RenderSys.Zoom + PA.width / 2, (N.Connections.get(j).Pos.y - E.RenderSys.Focus().y) * E.RenderSys.Zoom + PA.height / 2);
                 }
-                if (GM.GetKey('c')) {
+                if (E.GetKey('c')) {
                     N.number = 0;
                     N.number2 = 0;
                 }
-                GM.fill(0);
-                GM.textSize(GM.Render.Zoom);
-                GM.text(N.number, (N.Pos.x - GM.P.Pos.x) * GM.Render.Zoom + GM.width / 2, (N.Pos.y - GM.P.Pos.y) * GM.Render.Zoom + GM.height / 2);
-                GM.fill(100,0,0);
-                GM.text(N.number2, (N.Pos.x - GM.P.Pos.x) * GM.Render.Zoom + GM.width / 2, (N.Pos.y - GM.P.Pos.y + 1) * GM.Render.Zoom + GM.height / 2);
+                PA.fill(0);
+                PA.textSize(E.GetZoom());
+                PA.text(N.number, (N.Pos.x - E.RenderSys.Focus().x) * E.GetZoom() + PA.width / 2, (N.Pos.y - E.RenderSys.Focus().y) * E.GetZoom() + PA.height / 2);
+                PA.fill(100,0,0);
+                PA.text(N.number2, (N.Pos.x - E.RenderSys.Focus().x) * E.GetZoom() + PA.width / 2, (N.Pos.y - E.RenderSys.Focus().y + 1) * E.GetZoom() + PA.height / 2);
             }
         }
     }

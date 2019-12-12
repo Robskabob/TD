@@ -5,6 +5,7 @@ import TD.System.PathSystem;
 import TD.UI.Elements.PathEditorUI;
 import TD.UI.Elements.PathModeButton;
 import TD.Util.Vec2;
+import processing.core.PApplet;
 
 public class CreateNode extends PathModeButton {
     public CreateNode(Vec2 pos, Vec2 scale, PathSystem PathSys) {
@@ -12,9 +13,9 @@ public class CreateNode extends PathModeButton {
     }
 
     @Override
-    public void Selected()
+    public void Selected(PApplet PA)
     {
-        if(Pather.GetNodeNearMouse(3) == null && !over && Pather.PA.mousePressed && Pather.PA.mouseButton == GameManager.LEFT)
+        if(Pather.GetNodeNearMouse(3) == null && !over && PA.mousePressed && PA.mouseButton == GameManager.LEFT)
         {
             Pather.CreateNode();
         }

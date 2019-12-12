@@ -14,7 +14,7 @@ public class TestPath extends PathModeButton {
     }
     boolean a,b,s;
     @Override
-    public boolean Select() {
+    public boolean Select(PApplet PA) {
         s = !a;
         if(b)
         {
@@ -30,13 +30,13 @@ public class TestPath extends PathModeButton {
         {
             if(!over)
             {
-                if (Pather.PA.mousePressed) {
+                if (PA.mousePressed) {
                     PathSystem.Node N = Pather.GetNodeNearMouse(3);
                     if(N != null) {
-                        if (Pather.PA.mouseButton == GameManager.LEFT) {
+                        if (PA.mouseButton == GameManager.LEFT) {
                             Pather.Sel = N;
                         }
-                        if (Pather.PA.mouseButton == GameManager.RIGHT) {
+                        if (PA.mouseButton == GameManager.RIGHT) {
                             Pather.las = N;
                         }
                     }

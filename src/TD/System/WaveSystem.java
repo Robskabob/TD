@@ -1,17 +1,23 @@
 package TD.System;
 
+import TD.Main.Engine;
 import TD.Main.GameManager;
+import TD.Main.GameMode;
 import TD.Objects.Unit;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WaveSystem extends System {
+public class WaveSystem extends GameSystem {
 
     public int WaveCount;
 
     public List<Wave> Waves = new ArrayList<>();
+
+    public WaveSystem(Engine e, GameMode g) {
+        super(e, g);
+    }
 
     public class Wave
     {
@@ -38,16 +44,12 @@ public class WaveSystem extends System {
                 {
                     if((Time - G.TimeOffset)%G.Spacing==0)
                     {
-                        GM.Entity.Add(new Unit(G.U,G.U.path));
+                        E.EntitySys.Add(new Unit(G.U,G.U.path));
                         G.Count--;
                     }
                 }
             }
         }
-    }
-
-    public WaveSystem(PApplet gm) {
-        super(gm);
     }
 
     @Override
@@ -56,7 +58,12 @@ public class WaveSystem extends System {
     }
 
     @Override
-    public void draw() {
+    public void update() {
+
+    }
+
+    @Override
+    public void draw(PApplet PA) {
 
     }
 }

@@ -5,6 +5,7 @@ import TD.System.PathSystem;
 import TD.UI.Elements.PathEditorUI;
 import TD.UI.Elements.PathModeButton;
 import TD.Util.Vec2;
+import processing.core.PApplet;
 
 public class MoveNode extends PathModeButton {
     public MoveNode(Vec2 pos, Vec2 scale, PathSystem PathSys) {
@@ -12,11 +13,11 @@ public class MoveNode extends PathModeButton {
     }
 
     @Override
-    public void Selected()
+    public void Selected(PApplet PA)
     {
         if(!over)
         {
-            if (Pather.PA.mousePressed) {
+            if (PA.mousePressed) {
 
                 if(Pather.Sel == null)
                 {

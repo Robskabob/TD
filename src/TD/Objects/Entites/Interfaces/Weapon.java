@@ -2,6 +2,7 @@ package TD.Objects.Entites.Interfaces;
 
 import TD.Main.GameManager;
 import TD.Objects.Entites.Projectile;
+import TD.System.EntitySystem;
 import TD.Util.Vec2;
 
 public class Weapon
@@ -26,15 +27,14 @@ public class Weapon
         Spread = spread;
     }
 
-    public float Shoot(Vec2 Pos, float Dir,float fr)
+    public float Shoot(EntitySystem ES, Vec2 Pos, float Dir, float fr)
     {
-        GameManager GM = GameManager.GM;
         if(fr>1) {
             fr-=1;
-            GM.Entity.Add(P.New(Pos, Dir+GM.random(-Spread,Spread),Radius, Speed, 3));
+            ES.Add(P.New(Pos, Dir+(((float)Math.random()-.5f)*Spread),Radius, Speed, 3));
         }
         else {
-            fr+=FireRate/GM.frameRate;
+            fr+=FireRate/30;
         }
         return fr;
     }
