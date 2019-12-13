@@ -8,7 +8,9 @@ import TD.Util.Vec2;
 
 public class Engine
 {
-    GameManager GM;
+    public GameManager GM;
+
+    public GameMode Mode;
 
     public Map M;
     public PathSystem PathSys;
@@ -17,14 +19,45 @@ public class Engine
     //public KeySystem KeySys;
     //public UISystem UISys;
 
-    public void Setup(){}
-    public void Update(){}
+    public Engine()
+    {
+        Setup();
+        JoinGame(LoadMap(), new EditorMode(this,M));
+    }
 
-    public void LoadMap(){}
+    public void Setup()
+    {
+        PathSys = new PathSystem(this,Mode);
+        RenderSys = new RenderSystem(this,Mode);
+        EntitySys = new EntitySystem(this,Mode);
+    }
+    public void Update()
+    {
+        PathSys.update();
+        RenderSys.update();
+        EntitySys.update();
+    }
+
+    public Map LoadMap()
+    {
+        return new Map(100,100,new Block[]{
+            new Block(GM, 0, 10, 100, 0, PathSystem.Terrain.Water),
+            new Block(GM, 0, 30, 110, 0, PathSystem.Terrain.Water),
+            new Block(GM, 10, 110, 20, 1, PathSystem.Terrain.Land),
+            new Block(GM, 80, 110, 60, 1, PathSystem.Terrain.Land),
+            new Block(GM, 120, 120, 120, 2, PathSystem.Terrain.Land),
+            new Block(GM, 211, 211, 211, 2, PathSystem.Terrain.Land),
+            new Block(GM, 120, 120, 120, 4, PathSystem.Terrain.Land),
+            new Block(GM, 222, 222, 222, 5, PathSystem.Terrain.Land),
+        });
+    }
     public void Pause(){}
     public void Resume(){}
     public void ExitGame(){}
-    public void JoinGame(){}
+    public void JoinGame(Map M, GameMode G){
+        this.M = M;
+        Mode = G;
+    }
 
     public int ScreenWidth() {
         return GM.width;

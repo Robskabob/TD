@@ -8,7 +8,13 @@ public class Map
     public int Height;
     private int[][] data;
 
-    public Block[] BlockMap = new Block[]{};
+    public Block[] BlockMap;
+
+    public Map(int width, int height, Block[] blockMap) {
+        Width = width;
+        Height = height;
+        BlockMap = blockMap;
+    }
 
     public void Default() {
         Width = 100;

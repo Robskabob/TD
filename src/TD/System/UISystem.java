@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class UISystem extends MainSystem
 {
     public Theme T = new Theme();
-    public ArrayList<Element> Elements = new ArrayList<Element>();
+    public ArrayList<Element> Elements = new ArrayList<>();
     public Selectable Sel;
 
     public UISystem(GameManager pa) {
@@ -24,8 +24,6 @@ public class UISystem extends MainSystem
 
     @Override
     public void setup() {
-        Elements.add(new PathEditorUI(this,GM.E.PathSys));
-        Elements.add(new TowerUI());
     }
 
     @Override
@@ -34,9 +32,8 @@ public class UISystem extends MainSystem
 
     @Override
     public void draw(PApplet PA) {
-        for(int i = 0; i < Elements.size(); i++)
-        {
-            UpdateElement(PA,Elements.get(i));
+        for (Element element : Elements) {
+            UpdateElement(PA, element);
         }
 
     }
@@ -63,7 +60,7 @@ public class UISystem extends MainSystem
             }
             else
                 S.Selected(PA);
-            if(GM.E.GetKey(S.ShortCut()))
+            if(GM.Key.Get(S.ShortCut()))
             {
                 if(Sel != null)
                     Sel.DeSelect(GM);
