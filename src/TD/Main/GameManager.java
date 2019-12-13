@@ -46,6 +46,7 @@ public class GameManager extends PApplet
     }
 
     public void setup(){
+        E = new Engine(this);
         //P = new Player(50,50,.4f,1,5);
         //Map.BlockMap = new Block[]{
         //    new Block(this, 0, 10, 100, 0, PathSystem.Terrain.Water),
@@ -76,6 +77,8 @@ public class GameManager extends PApplet
         //Entity.update();
         //Render.update();
         //Pather.update();
+        E.Update();
+        E.Draw(this);
         UI.update();
         textSize(32);
         fill(0, 0, 0);

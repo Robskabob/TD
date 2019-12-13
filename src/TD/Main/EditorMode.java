@@ -12,6 +12,8 @@ public class EditorMode extends GameMode
     public EditorMode(Engine E, Map M) {
         super(E,M);
         P = new Player(M.Width/2f,M.Height/2f,.5f,M.GetBlock(M.Width/2,M.Height/2).height,1);
+        E.EntitySys.Add(P);
+        E.RenderSys.Focus = P;
         E.GM.UI.Elements.add(new PathEditorUI(E.GM.UI,E.PathSys));
         E.GM.UI.Elements.add(new TowerUI());
     }

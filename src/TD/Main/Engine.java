@@ -5,6 +5,7 @@ import TD.Objects.Data.Map;
 import TD.Objects.Entites.Player;
 import TD.System.*;
 import TD.Util.Vec2;
+import processing.core.PApplet;
 
 public class Engine
 {
@@ -19,10 +20,12 @@ public class Engine
     //public KeySystem KeySys;
     //public UISystem UISys;
 
-    public Engine()
+    public Engine(GameManager GM)
     {
+        this.GM = GM;
         Setup();
-        JoinGame(LoadMap(), new EditorMode(this,M));
+        M = LoadMap();
+        JoinGame(M, new EditorMode(this,M));
     }
 
     public void Setup()
@@ -37,7 +40,12 @@ public class Engine
         RenderSys.update();
         EntitySys.update();
     }
-
+    public void Draw(PApplet PA)
+    {
+        PathSys.draw(PA);
+        RenderSys.draw(PA);
+        EntitySys.draw(PA);
+    }
     public Map LoadMap()
     {
         return new Map(100,100,new Block[]{

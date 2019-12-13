@@ -14,6 +14,7 @@ public class Map
         Width = width;
         Height = height;
         BlockMap = blockMap;
+        data = new int[Width][Height];
     }
 
     public void Default() {
