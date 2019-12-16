@@ -11,7 +11,7 @@ import processing.core.PApplet;
 public class RenderSystem extends GameSystem
 {
 
-    public float Zoom;
+    public float Zoom = 10;
     //EntitySystem.Entity Target;
     public Entity Focus;
 

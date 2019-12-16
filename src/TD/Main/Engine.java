@@ -20,6 +20,8 @@ public class Engine
     //public KeySystem KeySys;
     //public UISystem UISys;
 
+    private boolean Paused;
+
     public Engine(GameManager GM)
     {
         this.GM = GM;
@@ -36,9 +38,12 @@ public class Engine
     }
     public void Update()
     {
-        PathSys.update();
-        RenderSys.update();
-        EntitySys.update();
+        if(!Paused)
+        {
+            PathSys.update();
+            RenderSys.update();
+            EntitySys.update();
+        }
     }
     public void Draw(PApplet PA)
     {
@@ -59,8 +64,12 @@ public class Engine
             new Block(GM, 222, 222, 222, 5, PathSystem.Terrain.Land),
         });
     }
-    public void Pause(){}
-    public void Resume(){}
+    public void Pause(){
+        Paused = true;
+    }
+    public void Resume(){
+        Paused = false;
+    }
     public void ExitGame(){}
     public void JoinGame(Map M, GameMode G){
         this.M = M;

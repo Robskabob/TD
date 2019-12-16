@@ -35,7 +35,6 @@ public class UISystem extends MainSystem
         for (Element element : Elements) {
             UpdateElement(PA, element);
         }
-
     }
 
     private void UpdateElement(PApplet PA,Element E) {

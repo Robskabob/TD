@@ -80,6 +80,7 @@ public class GameManager extends PApplet
         E.Update();
         E.Draw(this);
         UI.update();
+        UI.draw(this);
         textSize(32);
         fill(0, 0, 0);
         //text("Zoom:"+GetZoom(), 10, 30);
@@ -96,23 +97,27 @@ public class GameManager extends PApplet
 
     public void mouseWheel(MouseEvent event)
     {
-        //float e = event.getCount();
-        //if(keyCode == CONTROL)
-        //{
-        //    Render.Zoom-=e;
-        //}
-        //else
-        //{
-        //    M+=e;
-        //    if(M>Map.BlockMap.length-1)
-        //    {
-        //        M=0;
-        //    }
-        //    else if(M<0)
-        //    {
-        //        M=Map.BlockMap.length-1;
-        //    }
-        //}
+        float e = event.getCount();
+        if(keyCode == CONTROL)
+        {
+            E.RenderSys.Zoom-=e;
+            if(E.RenderSys.Zoom<1)
+            {
+                E.RenderSys.Zoom = 1;
+            }
+        }
+        else
+        {
+            M+=e;
+            if(M>E.M.BlockMap.length-1)
+            {
+                M=0;
+            }
+            else if(M<0)
+            {
+                M=E.M.BlockMap.length-1;
+            }
+        }
     }
     public void keyPressed()
     {
