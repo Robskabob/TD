@@ -1,15 +1,18 @@
 package TD.System;
 
 import TD.Main.GameManager;
+import TD.Util.Vec2;
 import processing.core.PApplet;
 
 import java.util.HashMap;
 
-public class KeySystem extends MainSystem {
+public class InPutSystem extends MainSystem {
     private char Last;
     private HashMap<Character, Boolean> Keys = new HashMap();
 
-    public KeySystem(GameManager pa) {
+    public boolean Disable;
+
+    public InPutSystem(GameManager pa) {
         super(pa);
     }
 
@@ -22,12 +25,16 @@ public class KeySystem extends MainSystem {
 
     }
 
+    public Vec2 MousePos(){return null;}
+
     @Override
     public void draw(PApplet PA) {
 
     }
 
-    public boolean Get(Character c) {
+    public boolean GetKey(Character c) {
+        if(Disable)
+            return false;
         return Keys.containsKey(c) && Keys.get(c);
     }
 

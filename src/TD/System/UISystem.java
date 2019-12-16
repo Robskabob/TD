@@ -2,7 +2,6 @@ package TD.System;
 
 import TD.Main.GameManager;
 import TD.UI.Elements.*;
-import TD.UI.Elements.TowerUI.TowerUI;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -59,7 +58,8 @@ public class UISystem extends MainSystem
             }
             else
                 S.Selected(PA);
-            if(GM.Key.Get(S.ShortCut()))
+
+            if(GM.InPut.GetKey(S.ShortCut()))
             {
                 if(Sel != null)
                     Sel.DeSelect(GM);

@@ -2,8 +2,11 @@ package TD.Main;
 
 import TD.Objects.Data.Map;
 import TD.Objects.Entites.Player;
+import TD.UI.Elements.FloatBox;
 import TD.UI.Elements.PathEditorUI;
+import TD.UI.Elements.TextBox;
 import TD.UI.Elements.TowerUI.TowerUI;
+import TD.Util.Vec2;
 
 public class EditorMode extends GameMode
 {
@@ -16,6 +19,7 @@ public class EditorMode extends GameMode
         E.RenderSys.Focus = P;
         E.GM.UI.Elements.add(new PathEditorUI(E.GM.UI,E.PathSys));
         E.GM.UI.Elements.add(new TowerUI());
+        E.GM.UI.Elements.add(new TextBox(new Vec2(190,190),new Vec2(250,40)));
     }
 
     @Override

@@ -2,7 +2,6 @@ package TD.Main;
 
 import TD.Objects.Block;
 import TD.Objects.Data.Map;
-import TD.Objects.Entites.Player;
 import TD.System.*;
 import TD.Util.Vec2;
 import processing.core.PApplet;
@@ -76,6 +75,8 @@ public class Engine
         Mode = G;
     }
 
+    public Vec2 ScreenToWorldPoint(){return null;}
+
     public int ScreenWidth() {
         return GM.width;
     }
@@ -107,7 +108,7 @@ public class Engine
 
     public boolean GetKey(char key)
     {
-        return GM.Key.Get(key);
+        return GM.InPut.GetKey(key);
     }
 
     public float GetZoom()

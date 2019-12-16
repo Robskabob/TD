@@ -1,8 +1,5 @@
 package TD.Main;
 
-import TD.Objects.Block;
-import TD.Objects.Entites.Tower;
-import TD.Objects.Entites.Player;
 import TD.System.*;
 import processing.core.PApplet;
 import processing.event.MouseEvent;
@@ -16,7 +13,7 @@ public class GameManager extends PApplet
     //public RenderSystem Render = new RenderSystem(this);
     //public EntitySystem Entity = new EntitySystem(this);
     //public PathSystem Pather = new PathSystem(this);
-    public KeySystem Key = new KeySystem(this);
+    public InPutSystem InPut = new InPutSystem(this);
     public UISystem UI = new UISystem(this);
     //End Systems
 
@@ -64,7 +61,7 @@ public class GameManager extends PApplet
         //Render.setup();
         //Entity.setup();
         UI.setup();
-        Key.setup();
+        InPut.setup();
         //Render.Focus = P;
         //Entity.Add(P);
         //Entity.Add(new Tower(30,20));
@@ -121,7 +118,7 @@ public class GameManager extends PApplet
     }
     public void keyPressed()
     {
-        Key.KeyDown();
+        InPut.KeyDown();
         //if(key=='i')
         //{
         //    Entity.RR++;
@@ -133,7 +130,7 @@ public class GameManager extends PApplet
     }
     public void keyReleased()
     {
-        Key.KeyUp();
+        InPut.KeyUp();
     }
     public int M;//Current Block type
     public int MX;

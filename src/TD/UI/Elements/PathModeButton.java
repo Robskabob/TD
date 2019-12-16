@@ -36,11 +36,6 @@ public class PathModeButton extends Button
     }
 
     @Override
-    public void DeSelect(PApplet PA) {
-        Selected = false;
-    }
-
-    @Override
     public void MouseOver(PApplet PA) {
         over = true;
     }
