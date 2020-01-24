@@ -1,17 +1,25 @@
 package TD.Objects;
 
 import TD.Main.GameManager;
+import TD.System.PathSystem;
 
 public class Block
 {
-    private GameManager gameManager;
     public int Color;
-    public int Depth;
+    public int height;
+    public PathSystem.Terrain T;
 
-    public Block(GameManager gameManager, int r, int g, int b, int D)
+    public Block(GameManager gameManager, int r, int g, int b, int D, PathSystem.Terrain t)
     {
-        this.gameManager = gameManager;
+        T = t;
         Color = gameManager.color(r,g,b);
-        Depth = D;
+        height = D;
+    }
+
+    public Block(int C, int D, PathSystem.Terrain t)
+    {
+        T = t;
+        Color = C;
+        height = D;
     }
 }

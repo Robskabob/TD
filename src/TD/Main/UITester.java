@@ -5,7 +5,11 @@ import processing.core.PApplet;
 
 public class UITester extends PApplet
 {
-    public UISystem UI = new UISystem(this);
+    public static void main(String[] args) {
+        PApplet.main("TD.Main.UITester");
+    }
+
+    public UISystem UI = new UISystem(null);
 
     public void settings(){
         size(displayWidth,displayHeight);
@@ -16,7 +20,7 @@ public class UITester extends PApplet
     }
 
     public void draw() {
-        UI.draw();
+        UI.update();
     }
 
 }

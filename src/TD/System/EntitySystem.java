@@ -1,25 +1,30 @@
 package TD.System;
 
+import TD.Main.Engine;
 import TD.Main.GameManager;
-import TD.Objects.Entites.Player;
+import TD.Main.GameMode;
+import TD.Objects.Entites.Tower;
 import TD.Objects.Entity;
-import TD.Objects.Resources;
+import TD.Objects.Unit;
 import TD.Util.Vec2;
+import processing.core.PApplet;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class EntitySystem extends System
+public class EntitySystem extends GameSystem
 {
-    public EntitySystem(GameManager gm) {
-        super(gm);
-    }
 
     Random Rnd = new Random();
 
-    public List<Entity> Entities = new ArrayList<>();
+    private List<Entity> Entities = new ArrayList<>();
+    public List<Unit> Units = new ArrayList<Unit>();
+    public List<Tower> Towers = new ArrayList<Tower>();
+
+    public EntitySystem(Engine e, GameMode g) {
+        super(e, g);
+    }
 
     //Resource R[];
 
@@ -45,33 +50,98 @@ public class EntitySystem extends System
     }
     public int RR=0;
     @Override
-    public void draw()
+    public void update()
     {
-        for(int i = 0; i < Entities.size(); i++)
+        for(int i = 0; i < Size(); i++)
         {
-            Entity E = Entities.get(i);
-            if(E.Dead)
+            Entity En = Get(i);
+            if(En.Dead)
             {
-                Entities.remove(i);
+                Remove(En);
                 i--;
                 continue;
             }
-            E.Update(GM);
-            E.Physics(GM);
+            En.Update(E);
+            En.Physics(E);
         }
 
-        GM.strokeCap(2);
+        //PA.strokeCap(2);
         Rnd.setSeed(RR);
-        GM.textSize(10);
+        //PA.textSize(10);
         //for(int i = 0; i < R.length; i++)
         //{
         //    R[i].draw(GM.Render.FocusX(), GM.Render.FocusY(),GM);
         //}
     }
 
+    @Override
+    public void draw(PApplet PA) {
+
+    }
+
+    public Tower GetTowerNearPoint(Vec2 Pos, float MaxDist)
+    {
+        MaxDist *= MaxDist;
+        Tower N = null;
+
+        for(int i = 0; i < Towers.size(); i++)
+        {
+            Tower I = Towers.get(i);
+            float f = I.Pos.sub(Pos).sqMag();
+            if (f < MaxDist)
+            {
+                MaxDist = f;
+                N = I;
+            }
+        }
+
+        return N;
+    }
+
+    public Unit GetUnitNearPoint(Vec2 Pos, float MaxDist)
+    {
+        MaxDist *= MaxDist;
+        Unit N = null;
+
+        for(int i = 0; i < Units.size(); i++)
+        {
+            Unit I = Units.get(i);
+            float f = I.Pos.sub(Pos).sqMag();
+            if (f < MaxDist)
+            {
+                MaxDist = f;
+                N = I;
+            }
+        }
+
+        return N;
+    }
+
     public void Add(Entity E)
     {
         Entities.add(E);
+        if(E instanceof Tower)
+            Towers.add((Tower) E);
+        if(E instanceof Unit)
+            Units.add((Unit) E);
+    }
+
+    private void Remove(Entity E)
+    {
+        Entities.remove(E);
+        if(E instanceof Tower)
+            Towers.remove(E);
+        if(E instanceof Unit)
+            Units.remove(E);
+    }
+
+    public Entity Get(int i)
+    {
+        return Entities.get(i);
+    }
+    public int Size()
+    {
+        return Entities.size();
     }
 /*
     public class Building extends Entity
